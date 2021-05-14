@@ -12,7 +12,6 @@ namespace UIResolution
 {
     public class Mod : BasePatcherMod<Mod>
     {
-        private static Vector2 DefaulSize => new Vector2(1920f, 1080f);
         public override string NameRaw => "UI Resolution";
         public override string Description => "Change game UI resolution";
 
@@ -24,7 +23,12 @@ namespace UIResolution
             new Version("1.0"),
         };
 
+#if DEBUG
         public override bool IsBeta => true;
+#else
+        public override bool IsBeta => true;
+#endif
+
         protected override string IdRaw => nameof(UIResolution);
 
         protected override void GetSettings(UIHelperBase helper)
@@ -52,7 +56,9 @@ namespace UIResolution
             var success = true;
 
             success &= Patch_Screen_SetResolution();
-            success &= Patch_UIView_OnResolutionChanged2();
+            success &= Patch_UIView_OnResolutionChanged();
+            success &= Patch_UIView_OnResolutionChangedPrefix();
+            success &= Patch_UIView_OnResolutionChangedPostfix();
             success &= Patch_CameraController_UpdateFreeCamera();
 
             return success;
@@ -63,24 +69,39 @@ namespace UIResolution
             var parameters = new Type[] { typeof(int), typeof(int), typeof(bool) };
             return AddPostfix(typeof(Mod), nameof(Mod.SetResolutionPostfix), typeof(Screen), nameof(Screen.SetResolution), parameters);
         }
-        private bool Patch_UIView_OnResolutionChanged2()
+
+        private bool Patch_UIView_OnResolutionChanged()
+        {
+            return AddPrefix(typeof(Mod), nameof(Mod.OnResolutionChanged), typeof(UIView), "OnResolutionChanged");
+        }
+        private bool Patch_UIView_OnResolutionChangedPrefix()
         {
             var parameters = new Type[] { typeof(Vector2), typeof(Vector2) };
-            return AddPrefix(typeof(Mod), nameof(Mod.OnResolutionChangedPrefix2), typeof(UIView), "OnResolutionChanged", parameters);
+            return AddPrefix(typeof(Mod), nameof(Mod.OnResolutionChangedPrefix), typeof(UIView), "OnResolutionChanged", parameters);
         }
+        private bool Patch_UIView_OnResolutionChangedPostfix()
+        {
+            var parameters = new Type[] { typeof(Vector2), typeof(Vector2) };
+            return AddPostfix(typeof(Mod), nameof(Mod.OnResolutionChangedPostfix), typeof(UIView), "OnResolutionChanged", parameters);
+        }
+
         private bool Patch_CameraController_UpdateFreeCamera()
         {
             return AddPostfix(typeof(Mod), nameof(Mod.UpdateFreeCameraPostfix), typeof(CameraController), "UpdateFreeCamera");
         }
 
         private static void SetViewHeight(UIView view, int height) => view.fixedHeight = Math.Max(height, 1080);
-        private static void SetResolutionPostfix(int width, int height)
+        private static void SetResolutionPostfix(int height)
         {
             if (UIView.GetAView() is UIView view)
                 SetViewHeight(view, height);
         }
-
-        private static void OnResolutionChangedPrefix2(UIView __instance, Vector2 currentSize)
+        private static bool OnResolutionChanged(UIView __instance)
+        {
+            SetViewHeight(__instance, __instance.uiCamera.pixelHeight);
+            return false;
+        }
+        private static void OnResolutionChangedPrefix(UIView __instance, Vector2 currentSize)
         {
             if (__instance.FindUIComponent<UITextureSprite>("BackgroundSprite2") is UITextureSprite background)
             {
@@ -96,7 +117,9 @@ namespace UIResolution
 
             if (__instance.FindUIComponent<UIPanel>("FullScreenContainer") is UIPanel fullScreenContainer)
                 fullScreenContainer.anchor = UIAnchorStyle.All;
-
+        }
+        private static void OnResolutionChangedPostfix(UIView __instance, Vector2 currentSize)
+        {
             if (__instance.FindUIComponent<UIPanel>("InfoPanel") is UIPanel infoPanel)
             {
                 var delta = Mathf.Max(currentSize.y - 1080f, 0f);
