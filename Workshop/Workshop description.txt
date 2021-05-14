@@ -1,0 +1,22 @@
+[HR][/HR] 
+[img]https://i.imgur.com/txCq9p1.png[/img]
+[code][h1]Overview[/h1]
+[list][h2]This mod changes the game UI resolution to match the selected screen resolution[/h2][/list]
+[/code]
+
+The game UI resolution is always Full HD (1920x1080) regardless of the selected screen resolution, so the interface is too large on screens with a large diagonal.
+Just subscribe and activate the mod and the interface will be scaled to match screen resolution.
+Mod require Harmony
+
+[HR][/HR]
+[h1]Join to discord for discussion and support[/h1]
+[url=https://discord.gg/NnwhuBKMqj][img]https://i.imgur.com/bnDNN2x.png[/img][/url]
+
+[HR][/HR] 
+[h1]If you like UI Resolution, you can support me[/h1]
+
+[url=https://www.paypal.me/macsergey][img]https://i.imgur.com/vtwKnVr.png[/img][/url][url=https://www.patreon.com/MacSergey][img]https://i.imgur.com/aMLNy32.png[/img][/url]
+
+[HR][/HR]
+[h1]Source code[/h1]
+[url=https://github.com/MacSergey/UIResolution][img]https://i.imgur.com/DczUXYq.png[/img][/url]

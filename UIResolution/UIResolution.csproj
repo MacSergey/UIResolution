@@ -99,7 +99,7 @@
   <Target Name="AfterBuildRelease" AfterTargets="AfterBuild" Condition="'$(Configuration)' == 'Release'">
     <RemoveDir Directories="$(WorkshopDir)" />
     <Copy SourceFiles="@(FilesToCopy)" DestinationFiles="@(FilesToCopy->'$(WorkshopDir)\%(RecursiveDir)%(Filename)%(Extension)')" />
-    <Copy SourceFiles="$(ProjectDir)..\Workshop\PreviewImage$.png" DestinationFiles="$(WorkshopDir)\PreviewImage.png" />
+    <Copy SourceFiles="$(ProjectDir)..\Workshop\PreviewImage.png" DestinationFiles="$(WorkshopDir)\PreviewImage.png" />
   </Target>
   <ProjectExtensions>
     <VisualStudio>
