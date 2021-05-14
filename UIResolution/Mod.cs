@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using ColossalFramework.UI;
 using HarmonyLib;
@@ -12,6 +13,7 @@ namespace UIResolution
 {
     public class Mod : BasePatcherMod<Mod>
     {
+        private static MethodInfo UIComponentOnResolutionChanged { get; } = AccessTools.Method(typeof(UIComponent), "OnResolutionChanged");
         public override string NameRaw => "UI Resolution";
         public override string Description => "Change game UI resolution";
 
@@ -60,6 +62,7 @@ namespace UIResolution
             success &= Patch_UIView_OnResolutionChangedPrefix();
             success &= Patch_UIView_OnResolutionChangedPostfix();
             success &= Patch_CameraController_UpdateFreeCamera();
+            success &= Patch_UIComponent_AttachUIComponent();
 
             return success;
         }
@@ -88,6 +91,10 @@ namespace UIResolution
         private bool Patch_CameraController_UpdateFreeCamera()
         {
             return AddPostfix(typeof(Mod), nameof(Mod.UpdateFreeCameraPostfix), typeof(CameraController), "UpdateFreeCamera");
+        }
+        private bool Patch_UIComponent_AttachUIComponent()
+        {
+            return AddPostfix(typeof(Mod), nameof(Mod.AttachUIComponentPostfix), typeof(UIComponent), nameof(UIComponent.AttachUIComponent));
         }
 
         private static void SetViewHeight(UIView view, int height) => view.fixedHeight = Math.Max(height, 1080);
@@ -118,7 +125,7 @@ namespace UIResolution
             if (__instance.FindUIComponent<UIPanel>("FullScreenContainer") is UIPanel fullScreenContainer)
                 fullScreenContainer.anchor = UIAnchorStyle.All;
         }
-        private static void OnResolutionChangedPostfix(UIView __instance, Vector2 currentSize)
+        private static void OnResolutionChangedPostfix(UIView __instance, Vector2 oldSize, Vector2 currentSize)
         {
             if (__instance.FindUIComponent<UIPanel>("InfoPanel") is UIPanel infoPanel)
             {
@@ -137,6 +144,24 @@ namespace UIResolution
             {
                 var shift = 0.105f * 1080f / view.fixedHeight;
                 ___m_camera.rect = new Rect(0f, shift, 1f, 1f - shift);
+            }
+        }
+
+        private static void AttachUIComponentPostfix(UIComponent __result)
+        {
+            if (__result.GetUIView() is UIView view)
+            {
+                var parameters = new object[] { new Vector2(1920, 1080), new Vector2(view.fixedHeight * view.uiCamera.aspect, view.fixedHeight) };
+
+                UIComponentOnResolutionChanged.Invoke(__result, parameters);
+                __result.PerformLayout();
+
+                var components = __result.GetComponentsInChildren<UIComponent>();
+                foreach (var component in components)
+                {
+                    UIComponentOnResolutionChanged.Invoke(component, parameters);
+                    component.PerformLayout();
+                }
             }
         }
     }
