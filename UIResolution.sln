@@ -7,10 +7,20 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UIResolution", "UIResolutio
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ModShared", "ModsCommon\ModShared\ModShared.shproj", "{24615A21-AFA6-42C0-8B7A-4FB3329B056F}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "MessageBoxShared", "ModsCommon\MessageBoxShared\MessageBoxShared.shproj", "{D5B649EC-0FEC-48F3-8316-6E266169CDCC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{9954902F-3B8E-427A-A34F-C3C26E48761C}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "UIShared", "ModsCommon\UIShared\UIShared.shproj", "{BE979510-7832-4714-95A3-305065D9DED6}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		ModsCommon\ModShared\ModsCommonShared.projitems*{24615a21-afa6-42c0-8b7a-4fb3329b056f}*SharedItemsImports = 13
+		ModsCommon\MessageBoxShared\MessageBoxShared.projitems*{6286e108-7c7c-472a-a502-2de06d3a92d0}*SharedItemsImports = 4
 		ModsCommon\ModShared\ModsCommonShared.projitems*{6286e108-7c7c-472a-a502-2de06d3a92d0}*SharedItemsImports = 4
+		ModsCommon\UIShared\ModsUIShared.projitems*{6286e108-7c7c-472a-a502-2de06d3a92d0}*SharedItemsImports = 4
+		ModsCommon\UIShared\ModsUIShared.projitems*{be979510-7832-4714-95a3-305065d9ded6}*SharedItemsImports = 13
+		ModsCommon\MessageBoxShared\MessageBoxShared.projitems*{d5b649ec-0fec-48f3-8316-6e266169cdcc}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,7 +35,13 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{24615A21-AFA6-42C0-8B7A-4FB3329B056F} = {9954902F-3B8E-427A-A34F-C3C26E48761C}
+		{D5B649EC-0FEC-48F3-8316-6E266169CDCC} = {9954902F-3B8E-427A-A34F-C3C26E48761C}
+		{BE979510-7832-4714-95A3-305065D9DED6} = {9954902F-3B8E-427A-A34F-C3C26E48761C}
+	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
+		BuildVersion_StartDate = 2000/1/1
 		SolutionGuid = {97C26380-D213-457F-90D9-8EF0642976D3}
 	EndGlobalSection
 EndGlobal
