@@ -17,7 +17,7 @@ namespace UIResolution
         public override string NameRaw => "UI Resolution";
         public override string Description => "Change game UI resolution";
 
-        public override string WorkshopUrl => string.Empty;
+        public override string WorkshopUrl => "https://steamcommunity.com/sharedfiles/filedetails/?edit=true&id=2487213155";
         public override string BetaWorkshopUrl => string.Empty;
 
         public override List<Version> Versions { get; } = new List<Version>
