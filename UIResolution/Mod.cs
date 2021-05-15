@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Reflection.Emit;
 using System.Text;
+using ColossalFramework;
+using ColossalFramework.Globalization;
 using ColossalFramework.UI;
 using HarmonyLib;
 using ICities;
@@ -32,6 +35,19 @@ namespace UIResolution
 #endif
 
         protected override string IdRaw => nameof(UIResolution);
+        private static UISlider UIScaleSlider { get; set; }
+        private static UILabel UIScaleLabel { get; set; }
+        private static Dictionary<string, string> LocaleDic { get; } = new Dictionary<string, string>()
+        {
+            {string.Empty, "UI Scale ({0}%)" },
+            {"en", "UI Scale ({0}%)" },
+            {"es", "Escala de UI ({0}%)" },
+            {"fr", "Échelle UI ({0}%)" },
+            {"jp", "UIの拡大率 ({0}%)" },
+            {"pl", "Skalowanie UI ({0}%)" },
+            {"ru", "Масштаб UI ({0}%)" },
+        };
+        public static float SelectedUIScale;
 
         protected override void GetSettings(UIHelperBase helper)
         {
@@ -42,6 +58,8 @@ namespace UIResolution
         {
             base.Enable();
 
+            AddScale();
+
             if (UIView.GetAView() is UIView view)
                 SetViewHeight(view, view.uiCamera.pixelHeight);
         }
@@ -51,6 +69,8 @@ namespace UIResolution
 
             if (UIView.GetAView() is UIView view)
                 SetViewHeight(view, 1080);
+
+            RemoveScale();
         }
 
         protected override bool PatchProcess()
@@ -63,6 +83,10 @@ namespace UIResolution
             success &= Patch_UIView_OnResolutionChangedPostfix();
             success &= Patch_CameraController_UpdateFreeCamera();
             success &= Patch_UIComponent_AttachUIComponent();
+            success &= Patch_OptionsGraphicsPanel_OnApplyGraphics();
+            success &= Patch_OptionsGraphicsPanel_SetSavedResolutionSettings();
+            success &= Patch_OptionsGraphicsPanel_InitAspectRatios();
+            success &= Patch_OptionsGraphicsPanel_Awake();
 
             return success;
         }
@@ -96,8 +120,25 @@ namespace UIResolution
         {
             return AddPostfix(typeof(Mod), nameof(Mod.AttachUIComponentPostfix), typeof(UIComponent), nameof(UIComponent.AttachUIComponent));
         }
+        private bool Patch_OptionsGraphicsPanel_OnApplyGraphics()
+        {
+            return AddTranspiler(typeof(Mod), nameof(Mod.OnApplyGraphicsTranspiler), typeof(OptionsGraphicsPanel), nameof(OptionsGraphicsPanel.OnApplyGraphics));
+        }
+        private bool Patch_OptionsGraphicsPanel_SetSavedResolutionSettings()
+        {
+            return AddPostfix(typeof(Mod), nameof(Mod.SetSavedResolutionSettingsPostfix), typeof(OptionsGraphicsPanel), "SetSavedResolutionSettings");
+        }
+        private bool Patch_OptionsGraphicsPanel_InitAspectRatios()
+        {
+            return AddPrefix(typeof(Mod), nameof(Mod.InitAspectRatiosPrefix), typeof(OptionsGraphicsPanel), "InitAspectRatios");
+        }
+        private bool Patch_OptionsGraphicsPanel_Awake()
+        {
+            return AddPostfix(typeof(Mod), nameof(Mod.AwakePostfix), typeof(OptionsGraphicsPanel), "Awake");
+        }
 
-        private static void SetViewHeight(UIView view, int height) => view.fixedHeight = Math.Max(height, 1080);
+
+        private static void SetViewHeight(UIView view, int height) => view.fixedHeight = Math.Max((int)(height / SelectedUIScale), 1080);
         private static void SetResolutionPostfix(int height)
         {
             if (UIView.GetAView() is UIView view)
@@ -125,7 +166,7 @@ namespace UIResolution
             if (__instance.FindUIComponent<UIPanel>("FullScreenContainer") is UIPanel fullScreenContainer)
                 fullScreenContainer.anchor = UIAnchorStyle.All;
         }
-        private static void OnResolutionChangedPostfix(UIView __instance, Vector2 oldSize, Vector2 currentSize)
+        private static void OnResolutionChangedPostfix(UIView __instance, Vector2 currentSize)
         {
             if (__instance.FindUIComponent<UIPanel>("InfoPanel") is UIPanel infoPanel)
             {
@@ -162,6 +203,148 @@ namespace UIResolution
                     UIComponentOnResolutionChanged.Invoke(component, parameters);
                     component.PerformLayout();
                 }
+            }
+        }
+        private static IEnumerable<CodeInstruction> OnApplyGraphicsTranspiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
+        {
+            var bneUnLabel = default(Label);
+            var additionalLabel = generator.DefineLabel();
+
+            foreach (var instruction in instructions)
+            {
+                if (instruction.opcode == OpCodes.Bne_Un)
+                    bneUnLabel = (Label)instruction.operand;
+                else if (instruction.opcode == OpCodes.Beq)
+                {
+                    yield return new CodeInstruction(OpCodes.Bne_Un, additionalLabel);
+
+                    yield return new CodeInstruction(OpCodes.Ldsfld, AccessTools.Field(typeof(Mod), nameof(Mod.SelectedUIScale)));
+                    yield return new CodeInstruction(OpCodes.Call, AccessTools.PropertyGetter(typeof(Settings), nameof(Settings.UIScale)));
+                    yield return new CodeInstruction(OpCodes.Call, AccessTools.PropertyGetter(typeof(SavedFloat), nameof(SavedFloat.value)));
+                }
+                else if (instruction.labels.Contains(bneUnLabel))
+                    instruction.labels.Add(additionalLabel);
+
+                yield return instruction;
+            }
+        }
+        private static void SetSavedResolutionSettingsPostfix() => Settings.UIScale.value = SelectedUIScale;
+        private static bool InitAspectRatiosPrefix(OptionsGraphicsPanel __instance, List<float> ___m_SupportedAspectRatios, UIDropDown ___m_AspectRatioDropdown)
+        {
+            ___m_SupportedAspectRatios.Clear();
+
+            var ratios = new float[] { 4f / 3f, 16f / 9f, 16f / 10f, 21f / 9f, 32f / 9f };
+            var ratioNames = new string[] { "ASPECTRATIO_NORMAL", "ASPECTRATIO_WIDESCREEN", "ASPECTRATIO_WIDESCREEN2", "ASPECTRATIO_WIDESCREEN3", "32:9" };
+            var resolutions = Screen.resolutions;
+            var findCurrentAspectRatio = AccessTools.Method(typeof(OptionsGraphicsPanel), "FindCurrentAspectRatio");
+            var matchAspectRatio = AccessTools.Method(typeof(OptionsGraphicsPanel), "MatchAspectRatio");
+
+            List<string> list = new List<string>();
+            for (int i = 0; i < ratios.Length; i++)
+            {
+                foreach (Resolution resolution in resolutions)
+                {
+                    if ((bool)matchAspectRatio.Invoke(__instance, new object[] { resolution.width, resolution.height, ratios[i] }))
+                    {
+                        ___m_SupportedAspectRatios.Add(ratios[i]);
+                        list.Add(ratioNames[i]);
+                        break;
+                    }
+                }
+            }
+            if (___m_SupportedAspectRatios.Count == 0)
+            {
+                ___m_SupportedAspectRatios.Add(ratios[0]);
+                list.Add(ratioNames[0]);
+            }
+            ___m_AspectRatioDropdown.localizedItems = list.ToArray();
+            ___m_AspectRatioDropdown.selectedIndex = (int)findCurrentAspectRatio.Invoke(__instance, new object[0]);
+
+            return false;
+        }
+        private static void AwakePostfix(OptionsGraphicsPanel __instance)
+        {
+            if (__instance.Find<UIPanel>("DisplaySettings") is UIPanel displaySettings)
+                AddScale(displaySettings);
+        }
+
+        private static void AddScale()
+        {
+            if (UIView.GetAView() is UIView view && view.FindUIComponent<UIPanel>("DisplaySettings") is UIPanel displaySettings)
+                AddScale(displaySettings);
+        }
+        private static void AddScale(UIPanel displaySettings)
+        {
+            if (displaySettings.Find<UIPanel>("RefreshRate") is UIPanel refreshRate)
+                refreshRate.relativePosition = new Vector2(260f, 107f);
+
+            if (displaySettings.Find<UIPanel>("Fullscreen") is UIPanel fullscreen)
+                fullscreen.relativePosition = new Vector2(14f, 107f);
+
+            if (displaySettings.Find<UIButton>("Apply") is UIButton apply)
+                apply.textPadding = new RectOffset(8, 8, 8, 8);
+
+            var uiScale = displaySettings.AttachUIComponent(UITemplateManager.GetAsGameObject("OptionsSliderTemplate")) as UIPanel;
+            uiScale.height = 72f;
+            uiScale.name = "UIScale";
+            uiScale.relativePosition = new Vector2(503f, 35f);
+
+            UIScaleSlider = uiScale.Find<UISlider>("Slider");
+            UIScaleSlider.relativePosition = new Vector2(0f, 34f);
+            UIScaleSlider.minValue = 0.5f;
+            UIScaleSlider.maxValue = 2f;
+            UIScaleSlider.stepSize = 0.1f;
+
+            UIScaleLabel = uiScale.Find<UILabel>("Label");
+            UIScaleLabel.relativePosition = new Vector2(0f, 2f);
+            UIScaleLabel.localeID = "OPTIONS_RESOLUTION";
+            UIScaleLabel.isLocalized = true;
+
+            UIScaleSlider.eventValueChanged += ScaleChanged;
+            UIScaleSlider.value = Settings.UIScale;
+
+            var graphicsPanel = displaySettings.parent.gameObject.GetComponent<OptionsGraphicsPanel>();
+            AccessTools.Method(typeof(OptionsGraphicsPanel), "OnScreenResolutionChanged").Invoke(graphicsPanel, new object[0]);
+
+            static void LabelTextChanged(UIComponent component, string value)
+            {
+                var locale = SingletonLite<LocaleManager>.instance.language;
+                if (!LocaleDic.ContainsKey(locale))
+                    locale = string.Empty;
+
+                UIScaleLabel.eventTextChanged -= LabelTextChanged;
+                UIScaleLabel.text = string.Format(LocaleDic[locale], 100 * SelectedUIScale);
+                UIScaleLabel.eventTextChanged += LabelTextChanged;
+            }
+
+            static void ScaleChanged(UIComponent component, float value)
+            {
+                SelectedUIScale = value;
+                LabelTextChanged(UIScaleLabel, UIScaleLabel.text);
+            }
+        }
+
+        private static void RemoveScale()
+        {
+            if (UIView.GetAView() is UIView view && view.FindUIComponent<UIPanel>("DisplaySettings") is UIPanel displaySettings)
+            {
+                if (displaySettings.Find<UIPanel>("RefreshRate") is UIPanel refreshRate)
+                    refreshRate.relativePosition = new Vector2(14f, 107f);
+
+                if (displaySettings.Find<UIPanel>("Fullscreen") is UIPanel fullscreen)
+                    fullscreen.relativePosition = new Vector2(503f, 35f);
+
+                if (displaySettings.Find<UIButton>("Apply") is UIButton apply)
+                    apply.textPadding = new RectOffset(32, 32, 8, 8);
+
+                if (displaySettings.Find<UIPanel>("UIScale") is UIPanel uiResolution)
+                {
+                    uiResolution.parent?.RemoveUIComponent(uiResolution);
+                    GameObject.Destroy(uiResolution);
+                }
+
+                var graphicsPanel = displaySettings.parent.gameObject.GetComponent<OptionsGraphicsPanel>();
+                AccessTools.Method(typeof(OptionsGraphicsPanel), "OnScreenResolutionChanged").Invoke(graphicsPanel, new object[0]);
             }
         }
     }
