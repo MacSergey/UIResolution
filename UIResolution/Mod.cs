@@ -66,14 +66,14 @@ namespace UIResolution
             AddScale();
 
             if (UIView.GetAView() is UIView view)
-                SetViewHeight(view, view.uiCamera.pixelHeight);
+                SetViewSize(view, view.uiCamera.pixelWidth, view.uiCamera.pixelHeight);
         }
         protected override void Disable()
         {
             base.Disable();
 
             if (UIView.GetAView() is UIView view)
-                SetViewHeight(view, 1080);
+                SetViewSize(view, 1920, 1080);
 
             RemoveScale();
         }
@@ -86,8 +86,13 @@ namespace UIResolution
             success &= Patch_UIView_OnResolutionChanged();
             success &= Patch_UIView_OnResolutionChangedPrefix();
             success &= Patch_UIView_OnResolutionChangedPostfix();
+            success &= Patch_UIView_GetScreenResolution();
+
+
             success &= Patch_CameraController_UpdateFreeCamera();
             success &= Patch_UIComponent_AttachUIComponent();
+
+
             success &= Patch_OptionsGraphicsPanel_OnApplyGraphics();
             success &= Patch_OptionsGraphicsPanel_SetSavedResolutionSettings();
             success &= Patch_OptionsGraphicsPanel_InitAspectRatios();
@@ -104,7 +109,7 @@ namespace UIResolution
 
         private bool Patch_UIView_OnResolutionChanged()
         {
-            return AddPrefix(typeof(Mod), nameof(Mod.OnResolutionChanged), typeof(UIView), "OnResolutionChanged");
+            return AddPostfix(typeof(Mod), nameof(Mod.OnResolutionChanged), typeof(UIView), "OnResolutionChanged");
         }
         private bool Patch_UIView_OnResolutionChangedPrefix()
         {
@@ -115,6 +120,10 @@ namespace UIResolution
         {
             var parameters = new Type[] { typeof(Vector2), typeof(Vector2) };
             return AddPostfix(typeof(Mod), nameof(Mod.OnResolutionChangedPostfix), typeof(UIView), "OnResolutionChanged", parameters);
+        }
+        private bool Patch_UIView_GetScreenResolution()
+        {
+            return AddPrefix(typeof(Mod), nameof(Mod.GetScreenResolutionPrefix), typeof(UIView), nameof(UIView.GetScreenResolution));
         }
 
         private bool Patch_CameraController_UpdateFreeCamera()
@@ -143,18 +152,26 @@ namespace UIResolution
         }
 
 
-        private static void SetViewHeight(UIView view, int height) => view.fixedHeight = Math.Max((int)(height / SelectedUIScale), 1080);
-        private static void SetResolutionPostfix(int height)
+        private static void SetViewSize(UIView view, int width, int height)
+        {
+            width = (int)Mathf.Max(width / SelectedUIScale, 1080f / height * width);
+            height = (int)Math.Max(height / SelectedUIScale, 1080f);
+
+            AccessTools.Field(typeof(UIView), "m_FixedWidth").SetValue(view, width);
+            AccessTools.Field(typeof(UIView), "m_FixedHeight").SetValue(view, height);
+        }
+
+        private static void SetResolutionPostfix(int width, int height)
         {
             if (UIView.GetAView() is UIView view)
-                SetViewHeight(view, height);
+                SetViewSize(view, width, height);
         }
-        private static bool OnResolutionChanged(UIView __instance)
+        private static void OnResolutionChanged(UIView __instance)
         {
-            SetViewHeight(__instance, __instance.uiCamera.pixelHeight);
-            return false;
+            SetViewSize(__instance, __instance.uiCamera.pixelWidth, __instance.uiCamera.pixelHeight);
+            //return false;
         }
-        private static void OnResolutionChangedPrefix(UIView __instance, Vector2 currentSize)
+        private static void OnResolutionChangedPrefix(UIView __instance, Vector2 oldSize, Vector2 currentSize)
         {
             if (__instance.FindUIComponent<UITextureSprite>("BackgroundSprite2") is UITextureSprite background)
             {
@@ -171,7 +188,7 @@ namespace UIResolution
             if (__instance.FindUIComponent<UIPanel>("FullScreenContainer") is UIPanel fullScreenContainer)
                 fullScreenContainer.anchor = UIAnchorStyle.All;
         }
-        private static void OnResolutionChangedPostfix(UIView __instance, Vector2 currentSize)
+        private static void OnResolutionChangedPostfix(UIView __instance, Vector2 oldSize, Vector2 currentSize)
         {
             if (__instance.FindUIComponent<UIPanel>("InfoPanel") is UIPanel infoPanel)
             {
@@ -182,6 +199,11 @@ namespace UIResolution
                 if (infoPanel.Find<UITabstrip>("InfoMenu") is UITabstrip infoMenu)
                     infoMenu.relativePosition = new Vector2(15f, -1026f - delta);
             }
+        }
+        private static bool GetScreenResolutionPrefix(UIView __instance, ref Vector2 __result)
+        {
+            __result = new Vector2(__instance.fixedWidth, __instance.fixedHeight);
+            return false;
         }
 
         private static void UpdateFreeCameraPostfix(Camera ___m_camera, bool ___m_cachedFreeCamera)
@@ -200,14 +222,10 @@ namespace UIResolution
                 var parameters = new object[] { new Vector2(1920, 1080), new Vector2(view.fixedHeight * view.uiCamera.aspect, view.fixedHeight) };
 
                 UIComponentOnResolutionChanged.Invoke(__result, parameters);
-                __result.PerformLayout();
 
                 var components = __result.GetComponentsInChildren<UIComponent>();
                 foreach (var component in components)
-                {
                     UIComponentOnResolutionChanged.Invoke(component, parameters);
-                    component.PerformLayout();
-                }
             }
         }
         private static IEnumerable<CodeInstruction> OnApplyGraphicsTranspiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
