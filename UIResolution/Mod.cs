@@ -28,10 +28,10 @@ namespace UIResolution
             new Version("1.0"),
         };
 
-#if DEBUG
+#if BETA
         public override bool IsBeta => true;
 #else
-        public override bool IsBeta => true;
+        public override bool IsBeta => false;
 #endif
 
         protected override string IdRaw => nameof(UIResolution);
