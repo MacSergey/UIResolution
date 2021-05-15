@@ -21,7 +21,7 @@ namespace UIResolution
         public override string Description => "Change game UI resolution";
 
         public override string WorkshopUrl => "https://steamcommunity.com/sharedfiles/filedetails/?edit=true&id=2487213155";
-        public override string BetaWorkshopUrl => string.Empty;
+        public override string BetaWorkshopUrl => "https://steamcommunity.com/sharedfiles/filedetails/?id=2487959237";
 
         public override List<Version> Versions { get; } = new List<Version>
         {
@@ -40,12 +40,17 @@ namespace UIResolution
         private static Dictionary<string, string> LocaleDic { get; } = new Dictionary<string, string>()
         {
             {string.Empty, "UI Scale ({0}%)" },
+            {"de", "UI-Skalierung ({0}%)" },
             {"en", "UI Scale ({0}%)" },
             {"es", "Escala de UI ({0}%)" },
-            {"fr", "Échelle UI ({0}%)" },
+            {"fr", "Échelle de UI ({0}%)" },
+            {"it", "Scala UI ({0}%)" },
             {"jp", "UIの拡大率 ({0}%)" },
+            {"nl", "UI schaal ({0}%)" },
             {"pl", "Skalowanie UI ({0}%)" },
+            {"pt", "Escala da UI ({0}%)" },
             {"ru", "Масштаб UI ({0}%)" },
+            {"zh", "UI缩放 ({0}%)" },
         };
         public static float SelectedUIScale;
 
