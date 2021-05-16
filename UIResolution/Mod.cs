@@ -62,7 +62,6 @@ namespace UIResolution
         protected override void Enable()
         {
             base.Enable();
-
             AddScale();
 
             if (UIView.GetAView() is UIView view)
@@ -94,7 +93,6 @@ namespace UIResolution
 
             success &= Patch_OptionsGraphicsPanel_OnApplyGraphics();
             success &= Patch_OptionsGraphicsPanel_SetSavedResolutionSettings();
-            //success &= Patch_OptionsGraphicsPanel_InitAspectRatios();
             success &= Patch_OptionsGraphicsPanel_Awake();
 
             return success;
@@ -108,7 +106,7 @@ namespace UIResolution
 
         private bool Patch_UIView_OnResolutionChanged()
         {
-            return AddPrefix(typeof(Mod), nameof(Mod.OnResolutionChanged), typeof(UIView), "OnResolutionChanged");
+            return AddPrefix(typeof(Mod), nameof(Mod.OnResolutionChanged), typeof(UIView), "OnResolutionChanged", new Type[0]);
         }
         private bool Patch_UIView_OnResolutionChangedPrefix()
         {
@@ -137,10 +135,6 @@ namespace UIResolution
         {
             return AddPostfix(typeof(Mod), nameof(Mod.SetSavedResolutionSettingsPostfix), typeof(OptionsGraphicsPanel), "SetSavedResolutionSettings");
         }
-        //private bool Patch_OptionsGraphicsPanel_InitAspectRatios()
-        //{
-        //    return AddPrefix(typeof(Mod), nameof(Mod.InitAspectRatiosPrefix), typeof(OptionsGraphicsPanel), "InitAspectRatios");
-        //}
         private bool Patch_OptionsGraphicsPanel_Awake()
         {
             return AddPostfix(typeof(Mod), nameof(Mod.AwakePostfix), typeof(OptionsGraphicsPanel), "Awake");
@@ -160,13 +154,14 @@ namespace UIResolution
             if (UIView.GetAView() is UIView view)
                 SetViewSize(view, width, height);
         }
-        private static void OnResolutionChanged(UIView __instance)
+        private static bool OnResolutionChanged(UIView __instance)
         {
             SetViewSize(__instance, __instance.uiCamera.pixelWidth, __instance.uiCamera.pixelHeight);
+            return false;
         }
         private static void OnResolutionChangedPrefix(UIView __instance, Vector2 oldSize, Vector2 currentSize)
         {
-            SingletonMod<Mod>.Logger.Debug($"Resolution changed from {oldSize} to {currentSize} camera {__instance.uiCamera.pixelRect.max}\n{Environment.StackTrace}");
+            SingletonMod<Mod>.Logger.Debug($"Resolution changed from {oldSize} to {currentSize} camera {__instance.uiCamera.pixelRect.max}");
 
             if (__instance.FindUIComponent<UITextureSprite>("BackgroundSprite2") is UITextureSprite background)
             {
@@ -186,7 +181,10 @@ namespace UIResolution
         private static void OnResolutionChangedPostfix(UIView __instance, Vector2 oldSize, Vector2 currentSize)
         {
             if (__instance.FindUIComponent<UIPanel>("FullScreenContainer") is UIPanel fullScreenContainer)
-                fullScreenContainer.anchor = UIAnchorStyle.All;
+            {
+                fullScreenContainer.width = currentSize.x;
+                fullScreenContainer.relativePosition = Vector2.zero;
+            }
             if (__instance.FindUIComponent<UIPanel>("InfoPanel") is UIPanel infoPanel)
             {
                 var delta = Mathf.Max(currentSize.y - 1080f, 0f);
@@ -248,55 +246,7 @@ namespace UIResolution
             }
         }
         private static void SetSavedResolutionSettingsPostfix() => Settings.UIScale.value = SelectedUIScale;
-        //private static bool InitAspectRatiosPrefix(OptionsGraphicsPanel __instance, List<float> ___m_SupportedAspectRatios, UIDropDown ___m_AspectRatioDropdown)
-        //{
-        //    ___m_SupportedAspectRatios.Clear();
 
-        //    var findCurrentAspectRatio = AccessTools.Method(typeof(OptionsGraphicsPanel), "FindCurrentAspectRatio");
-        //    var resolutions = Screen.resolutions;
-        //    var ratiosHash = new HashSet<AspectRatio>();
-
-        //    foreach (var resolution in resolutions)
-        //    {
-        //        var nod = NOD(resolution.width, resolution.height);
-        //        var ratio = new AspectRatio() { x = resolution.width / nod, y = resolution.height / nod };
-        //        ratiosHash.Add(ratio);
-        //    }
-
-        //    var ratios = ratiosHash.ToList();
-        //    for (var i = 0; i < ratios.Count; i += 1)
-        //    {
-        //        for (var j = 0; j < ratios.Count; j += 1)
-        //        {
-        //            if (j == i)
-        //                continue;
-
-        //            if ((ratios[j].x < ratios[i].x || ratios[j].y < ratios[i].y) && Mathf.Abs(ratios[i].Ratio - ratios[j].Ratio) < 0.06f)
-        //            {
-        //                ratios.RemoveAt(i);
-        //                i -= 1;
-        //                break;
-        //            }
-        //        }
-        //    }
-
-        //    ___m_SupportedAspectRatios.AddRange(ratios.Select(r => r.Ratio));
-        //    ___m_AspectRatioDropdown.items = ratios.Select(r => r.ToString()).ToArray();
-        //    ___m_AspectRatioDropdown.selectedIndex = (int)findCurrentAspectRatio.Invoke(__instance, new object[0]);
-
-        //    return false;
-
-        //    static int NOD(int a, int b)
-        //    {
-        //        while (b > 0)
-        //        {
-        //            var temp = b;
-        //            b = a % b;
-        //            a = temp;
-        //        }
-        //        return a;
-        //    }
-        //}
         private static void AwakePostfix(OptionsGraphicsPanel __instance)
         {
             if (__instance.Find<UIPanel>("DisplaySettings") is UIPanel displaySettings)
@@ -308,6 +258,7 @@ namespace UIResolution
             if (UIView.GetAView() is UIView view && view.FindUIComponent<UIPanel>("DisplaySettings") is UIPanel displaySettings)
                 AddScale(displaySettings);
         }
+        private static int I = 0;
         private static void AddScale(UIPanel displaySettings)
         {
             if (displaySettings.Find<UIPanel>("RefreshRate") is UIPanel refreshRate)
@@ -325,21 +276,20 @@ namespace UIResolution
             uiScale.relativePosition = new Vector2(503f, 35f);
 
             UIScaleSlider = uiScale.Find<UISlider>("Slider");
+            UIScaleSlider.name = nameof(UIScaleSlider);
             UIScaleSlider.relativePosition = new Vector2(0f, 34f);
             UIScaleSlider.minValue = 0.5f;
             UIScaleSlider.maxValue = 2f;
             UIScaleSlider.stepSize = 0.1f;
 
             UIScaleLabel = uiScale.Find<UILabel>("Label");
+            UIScaleLabel.name = nameof(UIScaleLabel);
             UIScaleLabel.relativePosition = new Vector2(0f, 2f);
             UIScaleLabel.localeID = "OPTIONS_RESOLUTION";
             UIScaleLabel.isLocalized = true;
 
             UIScaleSlider.eventValueChanged += ScaleChanged;
             UIScaleSlider.value = Settings.UIScale;
-
-            var graphicsPanel = displaySettings.parent.gameObject.GetComponent<OptionsGraphicsPanel>();
-            AccessTools.Method(typeof(OptionsGraphicsPanel), "OnScreenResolutionChanged").Invoke(graphicsPanel, new object[0]);
 
             static void LabelTextChanged(UIComponent component, string value)
             {
@@ -375,22 +325,13 @@ namespace UIResolution
                 if (displaySettings.Find<UIPanel>("UIScale") is UIPanel uiResolution)
                 {
                     uiResolution.parent?.RemoveUIComponent(uiResolution);
+
+                    foreach(var component in uiResolution.GetComponentsInChildren<UIComponent>())
+                        GameObject.Destroy(component);
+
                     GameObject.Destroy(uiResolution);
                 }
-
-                var graphicsPanel = displaySettings.parent.gameObject.GetComponent<OptionsGraphicsPanel>();
-                AccessTools.Method(typeof(OptionsGraphicsPanel), "OnScreenResolutionChanged").Invoke(graphicsPanel, new object[0]);
             }
         }
-    }
-    struct AspectRatio
-    {
-        public int x;
-        public int y;
-
-        public float Ratio => (float)x / (float)y;
-
-        public override string ToString() => $"{x}:{y}";
-        public override bool Equals(object obj) => obj is AspectRatio other && other.x == x && other.y == y;
     }
 }
