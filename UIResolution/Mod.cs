@@ -258,7 +258,6 @@ namespace UIResolution
             if (UIView.GetAView() is UIView view && view.FindUIComponent<UIPanel>("DisplaySettings") is UIPanel displaySettings)
                 AddScale(displaySettings);
         }
-        private static int I = 0;
         private static void AddScale(UIPanel displaySettings)
         {
             if (displaySettings.Find<UIPanel>("RefreshRate") is UIPanel refreshRate)
