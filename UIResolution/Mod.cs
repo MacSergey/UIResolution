@@ -66,14 +66,14 @@ namespace UIResolution
             AddScale();
 
             if (UIView.GetAView() is UIView view)
-                SetViewHeight(view, view.uiCamera.pixelHeight);
+                SetViewSize(view, view.uiCamera.pixelWidth, view.uiCamera.pixelHeight);
         }
         protected override void Disable()
         {
             base.Disable();
 
             if (UIView.GetAView() is UIView view)
-                SetViewHeight(view, 1080);
+                SetViewSize(view, 1920, 1080);
 
             RemoveScale();
         }
@@ -86,11 +86,15 @@ namespace UIResolution
             success &= Patch_UIView_OnResolutionChanged();
             success &= Patch_UIView_OnResolutionChangedPrefix();
             success &= Patch_UIView_OnResolutionChangedPostfix();
+
+
             success &= Patch_CameraController_UpdateFreeCamera();
             success &= Patch_UIComponent_AttachUIComponent();
+
+
             success &= Patch_OptionsGraphicsPanel_OnApplyGraphics();
             success &= Patch_OptionsGraphicsPanel_SetSavedResolutionSettings();
-            success &= Patch_OptionsGraphicsPanel_InitAspectRatios();
+            //success &= Patch_OptionsGraphicsPanel_InitAspectRatios();
             success &= Patch_OptionsGraphicsPanel_Awake();
 
             return success;
@@ -133,29 +137,37 @@ namespace UIResolution
         {
             return AddPostfix(typeof(Mod), nameof(Mod.SetSavedResolutionSettingsPostfix), typeof(OptionsGraphicsPanel), "SetSavedResolutionSettings");
         }
-        private bool Patch_OptionsGraphicsPanel_InitAspectRatios()
-        {
-            return AddPrefix(typeof(Mod), nameof(Mod.InitAspectRatiosPrefix), typeof(OptionsGraphicsPanel), "InitAspectRatios");
-        }
+        //private bool Patch_OptionsGraphicsPanel_InitAspectRatios()
+        //{
+        //    return AddPrefix(typeof(Mod), nameof(Mod.InitAspectRatiosPrefix), typeof(OptionsGraphicsPanel), "InitAspectRatios");
+        //}
         private bool Patch_OptionsGraphicsPanel_Awake()
         {
             return AddPostfix(typeof(Mod), nameof(Mod.AwakePostfix), typeof(OptionsGraphicsPanel), "Awake");
         }
 
 
-        private static void SetViewHeight(UIView view, int height) => view.fixedHeight = Math.Max((int)(height / SelectedUIScale), 1080);
-        private static void SetResolutionPostfix(int height)
+        private static void SetViewSize(UIView view, int width, int height)
+        {
+            width = (int)Mathf.Max(width / SelectedUIScale, 1080f / height * width);
+            height = (int)Math.Max(height / SelectedUIScale, 1080f);
+
+            AccessTools.Field(typeof(UIView), "m_FixedWidth").SetValue(view, width);
+            view.fixedHeight = height;
+        }
+        private static void SetResolutionPostfix(int width, int height)
         {
             if (UIView.GetAView() is UIView view)
-                SetViewHeight(view, height);
+                SetViewSize(view, width, height);
         }
-        private static bool OnResolutionChanged(UIView __instance)
+        private static void OnResolutionChanged(UIView __instance)
         {
-            SetViewHeight(__instance, __instance.uiCamera.pixelHeight);
-            return false;
+            SetViewSize(__instance, __instance.uiCamera.pixelWidth, __instance.uiCamera.pixelHeight);
         }
-        private static void OnResolutionChangedPrefix(UIView __instance, Vector2 currentSize)
+        private static void OnResolutionChangedPrefix(UIView __instance, Vector2 oldSize, Vector2 currentSize)
         {
+            SingletonMod<Mod>.Logger.Debug($"Resolution changed from {oldSize} to {currentSize} camera {__instance.uiCamera.pixelRect.max}\n{Environment.StackTrace}");
+
             if (__instance.FindUIComponent<UITextureSprite>("BackgroundSprite2") is UITextureSprite background)
             {
                 background.size = currentSize;
@@ -171,8 +183,10 @@ namespace UIResolution
             if (__instance.FindUIComponent<UIPanel>("FullScreenContainer") is UIPanel fullScreenContainer)
                 fullScreenContainer.anchor = UIAnchorStyle.All;
         }
-        private static void OnResolutionChangedPostfix(UIView __instance, Vector2 currentSize)
+        private static void OnResolutionChangedPostfix(UIView __instance, Vector2 oldSize, Vector2 currentSize)
         {
+            if (__instance.FindUIComponent<UIPanel>("FullScreenContainer") is UIPanel fullScreenContainer)
+                fullScreenContainer.anchor = UIAnchorStyle.All;
             if (__instance.FindUIComponent<UIPanel>("InfoPanel") is UIPanel infoPanel)
             {
                 var delta = Mathf.Max(currentSize.y - 1080f, 0f);
@@ -234,39 +248,55 @@ namespace UIResolution
             }
         }
         private static void SetSavedResolutionSettingsPostfix() => Settings.UIScale.value = SelectedUIScale;
-        private static bool InitAspectRatiosPrefix(OptionsGraphicsPanel __instance, List<float> ___m_SupportedAspectRatios, UIDropDown ___m_AspectRatioDropdown)
-        {
-            ___m_SupportedAspectRatios.Clear();
+        //private static bool InitAspectRatiosPrefix(OptionsGraphicsPanel __instance, List<float> ___m_SupportedAspectRatios, UIDropDown ___m_AspectRatioDropdown)
+        //{
+        //    ___m_SupportedAspectRatios.Clear();
 
-            var ratios = new float[] { 4f / 3f, 16f / 9f, 16f / 10f, 21f / 9f, 32f / 9f };
-            var ratioNames = new string[] { "ASPECTRATIO_NORMAL", "ASPECTRATIO_WIDESCREEN", "ASPECTRATIO_WIDESCREEN2", "ASPECTRATIO_WIDESCREEN3", "32:9" };
-            var resolutions = Screen.resolutions;
-            var findCurrentAspectRatio = AccessTools.Method(typeof(OptionsGraphicsPanel), "FindCurrentAspectRatio");
-            var matchAspectRatio = AccessTools.Method(typeof(OptionsGraphicsPanel), "MatchAspectRatio");
+        //    var findCurrentAspectRatio = AccessTools.Method(typeof(OptionsGraphicsPanel), "FindCurrentAspectRatio");
+        //    var resolutions = Screen.resolutions;
+        //    var ratiosHash = new HashSet<AspectRatio>();
 
-            List<string> list = new List<string>();
-            for (int i = 0; i < ratios.Length; i++)
-            {
-                foreach (Resolution resolution in resolutions)
-                {
-                    if ((bool)matchAspectRatio.Invoke(__instance, new object[] { resolution.width, resolution.height, ratios[i] }))
-                    {
-                        ___m_SupportedAspectRatios.Add(ratios[i]);
-                        list.Add(ratioNames[i]);
-                        break;
-                    }
-                }
-            }
-            if (___m_SupportedAspectRatios.Count == 0)
-            {
-                ___m_SupportedAspectRatios.Add(ratios[0]);
-                list.Add(ratioNames[0]);
-            }
-            ___m_AspectRatioDropdown.localizedItems = list.ToArray();
-            ___m_AspectRatioDropdown.selectedIndex = (int)findCurrentAspectRatio.Invoke(__instance, new object[0]);
+        //    foreach (var resolution in resolutions)
+        //    {
+        //        var nod = NOD(resolution.width, resolution.height);
+        //        var ratio = new AspectRatio() { x = resolution.width / nod, y = resolution.height / nod };
+        //        ratiosHash.Add(ratio);
+        //    }
 
-            return false;
-        }
+        //    var ratios = ratiosHash.ToList();
+        //    for (var i = 0; i < ratios.Count; i += 1)
+        //    {
+        //        for (var j = 0; j < ratios.Count; j += 1)
+        //        {
+        //            if (j == i)
+        //                continue;
+
+        //            if ((ratios[j].x < ratios[i].x || ratios[j].y < ratios[i].y) && Mathf.Abs(ratios[i].Ratio - ratios[j].Ratio) < 0.06f)
+        //            {
+        //                ratios.RemoveAt(i);
+        //                i -= 1;
+        //                break;
+        //            }
+        //        }
+        //    }
+
+        //    ___m_SupportedAspectRatios.AddRange(ratios.Select(r => r.Ratio));
+        //    ___m_AspectRatioDropdown.items = ratios.Select(r => r.ToString()).ToArray();
+        //    ___m_AspectRatioDropdown.selectedIndex = (int)findCurrentAspectRatio.Invoke(__instance, new object[0]);
+
+        //    return false;
+
+        //    static int NOD(int a, int b)
+        //    {
+        //        while (b > 0)
+        //        {
+        //            var temp = b;
+        //            b = a % b;
+        //            a = temp;
+        //        }
+        //        return a;
+        //    }
+        //}
         private static void AwakePostfix(OptionsGraphicsPanel __instance)
         {
             if (__instance.Find<UIPanel>("DisplaySettings") is UIPanel displaySettings)
@@ -352,5 +382,15 @@ namespace UIResolution
                 AccessTools.Method(typeof(OptionsGraphicsPanel), "OnScreenResolutionChanged").Invoke(graphicsPanel, new object[0]);
             }
         }
+    }
+    struct AspectRatio
+    {
+        public int x;
+        public int y;
+
+        public float Ratio => (float)x / (float)y;
+
+        public override string ToString() => $"{x}:{y}";
+        public override bool Equals(object obj) => obj is AspectRatio other && other.x == x && other.y == y;
     }
 }
