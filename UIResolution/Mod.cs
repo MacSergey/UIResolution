@@ -52,7 +52,7 @@ namespace UIResolution
             {"ru", "Масштаб UI ({0}%)" },
             {"zh", "UI缩放 ({0}%)" },
         };
-        public static float SelectedUIScale;
+        public static float SelectedUIScale = 1f;
 
         protected override void GetSettings(UIHelperBase helper)
         {
@@ -70,11 +70,10 @@ namespace UIResolution
         protected override void Disable()
         {
             base.Disable();
+            RemoveScale();
 
             if (UIView.GetAView() is UIView view)
                 SetViewSize(view, 1920, 1080);
-
-            RemoveScale();
         }
 
         protected override bool PatchProcess()
@@ -194,6 +193,7 @@ namespace UIResolution
                 if (infoPanel.Find<UITabstrip>("InfoMenu") is UITabstrip infoMenu)
                     infoMenu.relativePosition = new Vector2(15f, -1026f - delta);
             }
+            var withoutParent = __instance.GetComponentsInChildren<UIComponent>().Where(c => c.parent == null).ToArray();
         }
 
         private static void UpdateFreeCameraPostfix(Camera ___m_camera, bool ___m_cachedFreeCamera)
@@ -212,14 +212,9 @@ namespace UIResolution
                 var parameters = new object[] { new Vector2(1920, 1080), new Vector2(view.fixedHeight * view.uiCamera.aspect, view.fixedHeight) };
 
                 UIComponentOnResolutionChanged.Invoke(__result, parameters);
-                __result.PerformLayout();
 
-                var components = __result.GetComponentsInChildren<UIComponent>();
-                foreach (var component in components)
-                {
+                foreach (var component in __result.GetComponentsInChildren<UIComponent>())
                     UIComponentOnResolutionChanged.Invoke(component, parameters);
-                    component.PerformLayout();
-                }
             }
         }
         private static IEnumerable<CodeInstruction> OnApplyGraphicsTranspiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
