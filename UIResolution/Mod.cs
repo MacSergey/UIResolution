@@ -41,7 +41,13 @@ namespace UIResolution
         public override CultureInfo Culture
         {
             get => Localize.Culture;
-            protected set => Localize.Culture = value;
+            protected set
+            {
+                Localize.Culture = value;
+
+                if (UIScaleLabel != null)
+                    SetScaleText();
+            }
         }
 
         private static UISlider UIScaleSlider { get; set; }
@@ -411,25 +417,16 @@ namespace UIResolution
             UIScaleLabel = uiScale.Find<UILabel>("Label");
             UIScaleLabel.name = nameof(UIScaleLabel);
             UIScaleLabel.relativePosition = new Vector2(0f, 2f);
-            UIScaleLabel.localeID = "OPTIONS_RESOLUTION";
-            UIScaleLabel.isLocalized = true;
 
             UIScaleSlider.eventValueChanged += ScaleChanged;
             UIScaleSlider.value = Settings.UIScale;
-
-            static void LabelTextChanged(UIComponent component, string value)
-            {
-                UIScaleLabel.eventTextChanged -= LabelTextChanged;
-                UIScaleLabel.text = string.Format(Localize.UIScale, 100 * SelectedUIScale);
-                UIScaleLabel.eventTextChanged += LabelTextChanged;
-            }
-
-            static void ScaleChanged(UIComponent component, float value)
-            {
-                SelectedUIScale = value;
-                LabelTextChanged(UIScaleLabel, UIScaleLabel.text);
-            }
         }
+        static void ScaleChanged(UIComponent component, float value)
+        {
+            SelectedUIScale = value;
+            SetScaleText();
+        }
+        static void SetScaleText() => UIScaleLabel.text = string.Format(Localize.UIScale, 100 * SelectedUIScale);
 
         private static void RemoveScale()
         {
