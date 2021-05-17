@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
@@ -20,7 +21,7 @@ namespace UIResolution
         private delegate void OnResolutionDelegate(UIComponent component, Vector2 previousResolution, Vector2 currentResolution);
         private static OnResolutionDelegate UIComponentOnResolutionChanged { get; } = AccessTools.MethodDelegate<OnResolutionDelegate>(AccessTools.Method(typeof(UIComponent), "OnResolutionChanged"), virtualCall: true);
         public override string NameRaw => "UI Resolution";
-        public override string Description => "Change game UI resolution";
+        public override string Description => Localize.Mod_Description;
 
         public override string WorkshopUrl => "https://steamcommunity.com/sharedfiles/filedetails/?edit=true&id=2487213155";
         public override string BetaWorkshopUrl => "https://steamcommunity.com/sharedfiles/filedetails/?id=2487959237";
@@ -37,34 +38,136 @@ namespace UIResolution
 #endif
 
         protected override string IdRaw => nameof(UIResolution);
+        public override CultureInfo Culture
+        {
+            get => Localize.Culture;
+            protected set => Localize.Culture = value;
+        }
+
         private static UISlider UIScaleSlider { get; set; }
         private static UILabel UIScaleLabel { get; set; }
-        private static Dictionary<string, string> LocaleDic { get; } = new Dictionary<string, string>()
-        {
-            {string.Empty, "UI Scale ({0}%)" },
-            {"de", "UI-Skalierung ({0}%)" },
-            {"en", "UI Scale ({0}%)" },
-            {"es", "Escala de UI ({0}%)" },
-            {"fr", "Échelle de UI ({0}%)" },
-            {"it", "Scala UI ({0}%)" },
-            {"jp", "UIの拡大率 ({0}%)" },
-            {"nl", "UI schaal ({0}%)" },
-            {"pl", "Skalowanie UI ({0}%)" },
-            {"pt", "Escala da UI ({0}%)" },
-            {"ru", "Масштаб UI ({0}%)" },
-            {"zh", "UI缩放 ({0}%)" },
-        };
+
         public static float SelectedUIScale = 1f;
         private static UIAnchorStyle TopLeft { get; } = UIAnchorStyle.Top | UIAnchorStyle.Left;
         private static UIAnchorStyle TopRight { get; } = UIAnchorStyle.Top | UIAnchorStyle.Right;
         private static UIAnchorStyle BottomLeft { get; } = UIAnchorStyle.Bottom | UIAnchorStyle.Left;
         private static UIAnchorStyle BottomRight { get; } = UIAnchorStyle.Bottom | UIAnchorStyle.Right;
-
-        protected override void GetSettings(UIHelperBase helper)
+        private static HashSet<string> StopList { get; } = new HashSet<string>
         {
-            var settings = new Settings();
-            settings.OnSettingsUI(helper);
-        }
+            "WarningPhasePanel",
+            "FullScreenContainer",
+            "FootballPoliciesTooltip",
+            "ModalEffect",
+            "ChirperPanel",
+            "InfoPanel",
+            "Esc",
+            "InfoRoadTooltip",
+            "ThumbnailBar",
+            "DefaultTooltip",
+            "TSBar",
+            "BulldozerBar",
+            "CursorInfo",
+            "UnlockingPanel",
+            "AdvisorLocationHelper169",
+            "UnlockTooltip",
+            "InfoTooltip",
+            "InfoAdvancedTooltip",
+            "InfoAdvancedTooltipDetail",
+            "InfoParkTooltipDetail",
+            "InfoIndustryBuildingTooltipDetail",
+            "InfoIndustryMainBuildingTooltipDetail",
+            "InfoUniqueFactoryTooltipDetail",
+            "AdvisorLocationHelperOthers",
+            "RadioPanel",
+            "InfoLandscapingTooltip",
+            "(Library) ExceptionPanel",
+            "(Library) ConfirmPanel",
+            "(Library) ExitConfirmPanel",
+            "(Library) LoadPanel",
+            "(Library) SavePanel",
+            "(Library) OptionsPanel",
+            "(Library) BailoutPanel",
+            "(Library) ZonedBuildingWorldInfoPanel",
+            "(Library) CityServiceWorldInfoPanel",
+            "(Library) PublicTransportWorldInfoPanel",
+            "(Library) DistrictWorldInfoPanel",
+            "(Library) TutorialPanel",
+            "(Library) HealthInfoViewPanel",
+            "(Library) OutsideConnectionsInfoViewPanel",
+            "(Library) CrimeInfoViewPanel",
+            "(Library) PopulationInfoViewPanel",
+            "(Library) PollutionInfoViewPanel",
+            "(Library) NoisePollutionInfoViewPanel",
+            "(Library) WindInfoViewPanel",
+            "(Library) LevelsInfoViewPanel",
+            "(Library) TrafficInfoViewPanel",
+            "(Library) LandValueInfoViewPanel",
+            "(Library) NaturalResourcesInfoViewPanel",
+            "(Library) PublicTransportInfoViewPanel",
+            "(Library) ElectricityInfoViewPanel",
+            "(Library) HappinessInfoViewPanel",
+            "(Library) EducationInfoViewPanel",
+            "(Library) WaterInfoViewPanel",
+            "(Library) HeatingInfoViewPanel",
+            "(Library) GarbageInfoViewPanel",
+            "(Library) PauseMenu",
+            "(Library) TimerConfirmPanel",
+            "(Library) FireSafetyInfoViewPanel",
+            "(Library) EntertainmentInfoViewPanel",
+            "(Library) CitizenWorldInfoPanel",
+            "(Library) TouristWorldInfoPanel",
+            "(Library) AnimalWorldInfoPanel",
+            "(Library) CitizenVehicleWorldInfoPanel",
+            "(Library) TouristVehicleWorldInfoPanel",
+            "(Library) CityServiceVehicleWorldInfoPanel",
+            "(Library) PublicTransportVehicleWorldInfoPanel",
+            "(Library) GameAreaInfoPanel",
+            "(Library) CityInfoPanel",
+            "(Library) StatisticsPanel",
+            "(Library) ServicePersonWorldInfoPanel",
+            "(Library) DebugOutputPanel",
+            "(Library) WaitPanel",
+            "(Library) PublicTransportDetailPanel",
+            "(Library) ChirperOptionPanel",
+            "(Library) RoadMaintenanceInfoViewPanel",
+            "(Library) RoadSnowInfoViewPanel",
+            "(Library) LandscapingInfoPanel",
+            "(Library) FootballPanel",
+            "(Library) MeteorWorldInfoPanel",
+            "(Library) ShelterWorldInfoPanel",
+            "(Library) StoryMessagePanel",
+            "(Library) DisasterReportPanel",
+            "(Library) EscapeRoutesInfoViewPanel",
+            "(Library) RadioInfoViewPanel",
+            "(Library) DestructionInfoViewPanel",
+            "(Library) DisasterDetectionInfoViewPanel",
+            "(Library) TerrainHeightInfoViewPanel",
+            "(Library) DisasterRiskInfoViewPanel",
+            "(Library) MessageBoxPanel",
+            "(Library) TrafficRoutesInfoViewPanel",
+            "(Library) RoadWorldInfoPanel",
+            "(Library) SnapSettingsPanel",
+            "(Library) FestivalPanel",
+            "(Library) ParkWorldInfoPanel",
+            "(Library) ToursInfoViewPanel",
+            "(Library) ParkMaintenanceInfoViewPanel",
+            "(Library) ParksOverviewPanel",
+            "(Library) ParkAreaUnlockingPanel",
+            "(Library) TourismInfoViewPanel",
+            "(Library) ChirpXPanel",
+            "(Library) IndustryWorldInfoPanel",
+            "(Library) PostInfoViewPanel",
+            "(Library) IndustryInfoViewPanel",
+            "(Library) WarehouseWorldInfoPanel",
+            "(Library) UniqueFactoryWorldInfoPanel",
+            "(Library) IndustryOverviewPanel",
+            "(Library) CampusWorldInfoPanel",
+            "(Library) VarsitySportsArenaPanel",
+            "(Library) AcademicYearReportPanel",
+            "(Library) FishingInfoViewPanel",
+            "(Library) TutorialsLogPanel",
+        };
+
         protected override void Enable()
         {
             base.Enable();
@@ -80,6 +183,12 @@ namespace UIResolution
 
             if (UIView.GetAView() is UIView view)
                 SetViewSize(view, 1920, 1080);
+        }
+        public override string GetLocalizeString(string str, CultureInfo culture = null) => Localize.ResourceManager.GetString(str, culture ?? Culture);
+        protected override void GetSettings(UIHelperBase helper)
+        {
+            var settings = new Settings();
+            settings.OnSettingsUI(helper);
         }
 
         protected override bool PatchProcess()
@@ -151,13 +260,16 @@ namespace UIResolution
             var oldSize = view.GetScreenResolution();
             foreach (var component in view.GetComponentsInChildren<UIComponent>())
             {
-                if (component.parent == null && (component.anchor == TopLeft || component.anchor == TopRight || component.anchor == BottomLeft || component.anchor == BottomRight) && (component as UIPanel)?.atlas != TextureHelper.InGameAtlas)
+                if (component.parent == null && !StopList.Contains(component.name) && (component.anchor == TopLeft || component.anchor == TopRight || component.anchor == BottomLeft || component.anchor == BottomRight))
                 {
-                    var center = ((Vector2)component.absolutePosition) + component.size / 2f;
-                    var horizontal = center.x <= oldSize.x / 2f ? UIAnchorStyle.Left : UIAnchorStyle.Right;
-                    var vertical = center.y <= oldSize.y / 2f ? UIAnchorStyle.Top : UIAnchorStyle.Bottom;
-                    var proportional = component is UIPanel ? UIAnchorStyle.Proportional : UIAnchorStyle.None;
-                    component.anchor = horizontal | vertical | proportional;
+                    var position = (Vector2)component.absolutePosition;
+                    var center = position + component.size / 2f;
+                    component.anchor = (center.x <= oldSize.x / 2f ? UIAnchorStyle.Left : UIAnchorStyle.Right) | (center.y <= oldSize.y / 2f ? UIAnchorStyle.Top : UIAnchorStyle.Bottom);
+
+                    var x = Mathf.Max(Mathf.Min(position.x, oldSize.x - component.size.x), 0f);
+                    var y = Mathf.Max(Mathf.Min(position.y, oldSize.y - component.size.y), 0f);
+
+                    component.absolutePosition = new Vector2(x, y);
                 }
             }
 
@@ -307,12 +419,8 @@ namespace UIResolution
 
             static void LabelTextChanged(UIComponent component, string value)
             {
-                var locale = SingletonLite<LocaleManager>.instance.language;
-                if (!LocaleDic.ContainsKey(locale))
-                    locale = string.Empty;
-
                 UIScaleLabel.eventTextChanged -= LabelTextChanged;
-                UIScaleLabel.text = string.Format(LocaleDic[locale], 100 * SelectedUIScale);
+                UIScaleLabel.text = string.Format(Localize.UIScale, 100 * SelectedUIScale);
                 UIScaleLabel.eventTextChanged += LabelTextChanged;
             }
 
