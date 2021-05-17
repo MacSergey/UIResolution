@@ -10,13 +10,15 @@ using ColossalFramework.UI;
 using HarmonyLib;
 using ICities;
 using ModsCommon;
+using ModsCommon.Utilities;
 using UnityEngine;
 
 namespace UIResolution
 {
     public class Mod : BasePatcherMod<Mod>
     {
-        private static MethodInfo UIComponentOnResolutionChanged { get; } = AccessTools.Method(typeof(UIComponent), "OnResolutionChanged");
+        private delegate void OnResolutionDelegate(UIComponent component, Vector2 previousResolution, Vector2 currentResolution);
+        private static OnResolutionDelegate UIComponentOnResolutionChanged { get; } = AccessTools.MethodDelegate<OnResolutionDelegate>(AccessTools.Method(typeof(UIComponent), "OnResolutionChanged"), virtualCall: true);
         public override string NameRaw => "UI Resolution";
         public override string Description => "Change game UI resolution";
 
@@ -53,6 +55,10 @@ namespace UIResolution
             {"zh", "UI缩放 ({0}%)" },
         };
         public static float SelectedUIScale = 1f;
+        private static UIAnchorStyle TopLeft { get; } = UIAnchorStyle.Top | UIAnchorStyle.Left;
+        private static UIAnchorStyle TopRight { get; } = UIAnchorStyle.Top | UIAnchorStyle.Right;
+        private static UIAnchorStyle BottomLeft { get; } = UIAnchorStyle.Bottom | UIAnchorStyle.Left;
+        private static UIAnchorStyle BottomRight { get; } = UIAnchorStyle.Bottom | UIAnchorStyle.Right;
 
         protected override void GetSettings(UIHelperBase helper)
         {
@@ -126,6 +132,7 @@ namespace UIResolution
         {
             return AddPostfix(typeof(Mod), nameof(Mod.AttachUIComponentPostfix), typeof(UIComponent), nameof(UIComponent.AttachUIComponent));
         }
+
         private bool Patch_OptionsGraphicsPanel_OnApplyGraphics()
         {
             return AddTranspiler(typeof(Mod), nameof(Mod.OnApplyGraphicsTranspiler), typeof(OptionsGraphicsPanel), nameof(OptionsGraphicsPanel.OnApplyGraphics));
@@ -139,9 +146,21 @@ namespace UIResolution
             return AddPostfix(typeof(Mod), nameof(Mod.AwakePostfix), typeof(OptionsGraphicsPanel), "Awake");
         }
 
-
         private static void SetViewSize(UIView view, int width, int height)
         {
+            var oldSize = view.GetScreenResolution();
+            foreach (var component in view.GetComponentsInChildren<UIComponent>())
+            {
+                if (component.parent == null && (component.anchor == TopLeft || component.anchor == TopRight || component.anchor == BottomLeft || component.anchor == BottomRight) && (component as UIPanel)?.atlas != TextureHelper.InGameAtlas)
+                {
+                    var center = ((Vector2)component.absolutePosition) + component.size / 2f;
+                    var horizontal = center.x <= oldSize.x / 2f ? UIAnchorStyle.Left : UIAnchorStyle.Right;
+                    var vertical = center.y <= oldSize.y / 2f ? UIAnchorStyle.Top : UIAnchorStyle.Bottom;
+                    var proportional = component is UIPanel ? UIAnchorStyle.Proportional : UIAnchorStyle.None;
+                    component.anchor = horizontal | vertical | proportional;
+                }
+            }
+
             width = (int)Mathf.Max(width / SelectedUIScale, 1080f / height * width);
             height = (int)Math.Max(height / SelectedUIScale, 1080f);
 
@@ -158,6 +177,7 @@ namespace UIResolution
             SetViewSize(__instance, __instance.uiCamera.pixelWidth, __instance.uiCamera.pixelHeight);
             return false;
         }
+
         private static void OnResolutionChangedPrefix(UIView __instance, Vector2 oldSize, Vector2 currentSize)
         {
             SingletonMod<Mod>.Logger.Debug($"Resolution changed from {oldSize} to {currentSize} camera {__instance.uiCamera.pixelRect.max}");
@@ -193,7 +213,6 @@ namespace UIResolution
                 if (infoPanel.Find<UITabstrip>("InfoMenu") is UITabstrip infoMenu)
                     infoMenu.relativePosition = new Vector2(15f, -1026f - delta);
             }
-            var withoutParent = __instance.GetComponentsInChildren<UIComponent>().Where(c => c.parent == null).ToArray();
         }
 
         private static void UpdateFreeCameraPostfix(Camera ___m_camera, bool ___m_cachedFreeCamera)
@@ -209,14 +228,15 @@ namespace UIResolution
         {
             if (__result.GetUIView() is UIView view)
             {
-                var parameters = new object[] { new Vector2(1920, 1080), new Vector2(view.fixedHeight * view.uiCamera.aspect, view.fixedHeight) };
+                var previousResolution = new Vector2(1920, 1080);
+                var currentResolution = new Vector2(view.fixedWidth, view.fixedHeight);
 
-                UIComponentOnResolutionChanged.Invoke(__result, parameters);
-
+                UIComponentOnResolutionChanged(__result, previousResolution, currentResolution);
                 foreach (var component in __result.GetComponentsInChildren<UIComponent>())
-                    UIComponentOnResolutionChanged.Invoke(component, parameters);
+                    UIComponentOnResolutionChanged(component, previousResolution, currentResolution);
             }
         }
+
         private static IEnumerable<CodeInstruction> OnApplyGraphicsTranspiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
         {
             var bneUnLabel = default(Label);
@@ -320,7 +340,7 @@ namespace UIResolution
                 {
                     uiResolution.parent?.RemoveUIComponent(uiResolution);
 
-                    foreach(var component in uiResolution.GetComponentsInChildren<UIComponent>())
+                    foreach (var component in uiResolution.GetComponentsInChildren<UIComponent>())
                         GameObject.Destroy(component);
 
                     GameObject.Destroy(uiResolution);
