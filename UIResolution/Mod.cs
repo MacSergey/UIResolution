@@ -177,6 +177,8 @@ namespace UIResolution
         protected override void Enable()
         {
             base.Enable();
+
+            SelectedUIScale = Settings.UIScale;
             AddScale();
 
             if (UIView.GetAView() is UIView view)
@@ -185,6 +187,8 @@ namespace UIResolution
         protected override void Disable()
         {
             base.Disable();
+
+            SelectedUIScale = 1f;
             RemoveScale();
 
             if (UIView.GetAView() is UIView view)
@@ -354,10 +358,17 @@ namespace UIResolution
                 var previousResolution = new Vector2(1920, 1080);
                 var currentResolution = new Vector2(view.fixedWidth, view.fixedHeight);
 
-                UIComponentOnResolutionChanged(__result, previousResolution, currentResolution);
-                foreach (var component in __result.GetComponentsInChildren<UIComponent>())
+                var components = __result.GetComponentsInChildren<UIComponent>();
+                Array.Sort(components, RenderSortFunc);
+
+                foreach (var component in components)
                     UIComponentOnResolutionChanged(component, previousResolution, currentResolution);
+
+                foreach (var component in components)
+                    component.PerformLayout();
             }
+
+            static int RenderSortFunc(UIComponent lhs, UIComponent rhs) => lhs.renderOrder.CompareTo(rhs.renderOrder);
         }
 
         private static IEnumerable<CodeInstruction> OnApplyGraphicsTranspiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
@@ -424,7 +435,7 @@ namespace UIResolution
             UIScaleLabel.relativePosition = new Vector2(0f, 2f);
 
             UIScaleSlider.eventValueChanged += ScaleChanged;
-            UIScaleSlider.value = Settings.UIScale;
+            UIScaleSlider.value = SelectedUIScale;
         }
         static void ScaleChanged(UIComponent component, float value)
         {
