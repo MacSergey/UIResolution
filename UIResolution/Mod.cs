@@ -263,6 +263,16 @@ namespace UIResolution
 
         private static void SetViewSize(UIView view, int width, int height)
         {
+            FixAnchor(view);
+
+            width = (int)Mathf.Max(width / SelectedUIScale, 1080f / height * width);
+            height = (int)Math.Max(height / SelectedUIScale, 1080f);
+
+            AccessTools.Field(typeof(UIView), "m_FixedWidth").SetValue(view, width);
+            view.fixedHeight = height;
+        }
+        private static void FixAnchor(UIView view)
+        {
             var oldSize = view.GetScreenResolution();
             foreach (var component in view.GetComponentsInChildren<UIComponent>())
             {
@@ -278,13 +288,8 @@ namespace UIResolution
                     component.absolutePosition = new Vector2(x, y);
                 }
             }
-
-            width = (int)Mathf.Max(width / SelectedUIScale, 1080f / height * width);
-            height = (int)Math.Max(height / SelectedUIScale, 1080f);
-
-            AccessTools.Field(typeof(UIView), "m_FixedWidth").SetValue(view, width);
-            view.fixedHeight = height;
         }
+
         private static void SetResolutionPostfix(int width, int height)
         {
             if (UIView.GetAView() is UIView view)
