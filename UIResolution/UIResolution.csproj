@@ -107,17 +107,52 @@
     <EmbeddedResource Include="Properties\Localize.nl.resx" />
     <EmbeddedResource Include="Properties\Localize.pl.resx" />
     <EmbeddedResource Include="Properties\Localize.pt.resx" />
+    <EmbeddedResource Include="Properties\Localize.ru.resx" />
+    <EmbeddedResource Include="Properties\Localize.zh-CN.resx" />
     <EmbeddedResource Include="Properties\Localize.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Localize.Designer.cs</LastGenOutput>
       <CustomToolNamespace>UIResolution</CustomToolNamespace>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Localize.ru.resx" />
-    <EmbeddedResource Include="Properties\Localize.zn-CN.resx" />
+    <EmbeddedResource Include="..\ModsCommon\LocalizeShared\CommonLocalize.de.resx">
+      <Link>Properties\CommonLocalize.de.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\ModsCommon\LocalizeShared\CommonLocalize.es.resx">
+      <Link>Properties\CommonLocalize.es.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\ModsCommon\LocalizeShared\CommonLocalize.fr.resx">
+      <Link>Properties\CommonLocalize.fr.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\ModsCommon\LocalizeShared\CommonLocalize.ja.resx">
+      <Link>Properties\CommonLocalize.ja.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\ModsCommon\LocalizeShared\CommonLocalize.nl.resx">
+      <Link>Properties\CommonLocalize.nl.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\ModsCommon\LocalizeShared\CommonLocalize.pl.resx">
+      <Link>Properties\CommonLocalize.pl.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\ModsCommon\LocalizeShared\CommonLocalize.pt.resx">
+      <Link>Properties\CommonLocalize.pt.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\ModsCommon\LocalizeShared\CommonLocalize.ru.resx">
+      <Link>Properties\CommonLocalize.ru.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\ModsCommon\LocalizeShared\CommonLocalize.zh-CN.resx">
+      <Link>Properties\CommonLocalize.zh-CN.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\ModsCommon\LocalizeShared\CommonLocalize.resx">
+      <CustomToolNamespace>ModsCommon</CustomToolNamespace>
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <Link>Properties\CommonLocalize.resx</Link>
+      <LastGenOutput>CommonLocalize.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="..\ModsCommon\MessageBoxShared\MessageBoxShared.projitems" Label="Shared" />
   <Import Project="..\ModsCommon\UIShared\ModsUIShared.projitems" Label="Shared" />
   <Import Project="..\ModsCommon\ModShared\ModsCommonShared.projitems" Label="Shared" />
+  <Import Project="..\ModsCommon\LocalizeShared\LocalizeShared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>

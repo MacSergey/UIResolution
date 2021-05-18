@@ -13,14 +13,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{995490
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "UIShared", "ModsCommon\UIShared\UIShared.shproj", "{BE979510-7832-4714-95A3-305065D9DED6}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "LocalizeShared", "ModsCommon\LocalizeShared\LocalizeShared.shproj", "{F135CD5D-4CAB-4347-BF44-1C6D0794A19D}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		ModsCommon\ModShared\ModsCommonShared.projitems*{24615a21-afa6-42c0-8b7a-4fb3329b056f}*SharedItemsImports = 13
+		ModsCommon\LocalizeShared\LocalizeShared.projitems*{6286e108-7c7c-472a-a502-2de06d3a92d0}*SharedItemsImports = 4
 		ModsCommon\MessageBoxShared\MessageBoxShared.projitems*{6286e108-7c7c-472a-a502-2de06d3a92d0}*SharedItemsImports = 4
 		ModsCommon\ModShared\ModsCommonShared.projitems*{6286e108-7c7c-472a-a502-2de06d3a92d0}*SharedItemsImports = 4
 		ModsCommon\UIShared\ModsUIShared.projitems*{6286e108-7c7c-472a-a502-2de06d3a92d0}*SharedItemsImports = 4
 		ModsCommon\UIShared\ModsUIShared.projitems*{be979510-7832-4714-95a3-305065d9ded6}*SharedItemsImports = 13
 		ModsCommon\MessageBoxShared\MessageBoxShared.projitems*{d5b649ec-0fec-48f3-8316-6e266169cdcc}*SharedItemsImports = 13
+		ModsCommon\LocalizeShared\LocalizeShared.projitems*{f135cd5d-4cab-4347-bf44-1c6d0794a19d}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Beta Debug|Any CPU = Beta Debug|Any CPU
@@ -45,9 +49,10 @@ Global
 		{24615A21-AFA6-42C0-8B7A-4FB3329B056F} = {9954902F-3B8E-427A-A34F-C3C26E48761C}
 		{D5B649EC-0FEC-48F3-8316-6E266169CDCC} = {9954902F-3B8E-427A-A34F-C3C26E48761C}
 		{BE979510-7832-4714-95A3-305065D9DED6} = {9954902F-3B8E-427A-A34F-C3C26E48761C}
+		{F135CD5D-4CAB-4347-BF44-1C6D0794A19D} = {9954902F-3B8E-427A-A34F-C3C26E48761C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		BuildVersion_StartDate = 2000/1/1
 		SolutionGuid = {97C26380-D213-457F-90D9-8EF0642976D3}
+		BuildVersion_StartDate = 2000/1/1
 	EndGlobalSection
 EndGlobal

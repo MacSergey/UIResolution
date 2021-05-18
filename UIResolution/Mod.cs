@@ -28,6 +28,7 @@ namespace UIResolution
 
         public override List<Version> Versions { get; } = new List<Version>
         {
+            new Version("1.1"),
             new Version("1.0"),
         };
 
@@ -183,6 +184,8 @@ namespace UIResolution
 
             if (UIView.GetAView() is UIView view)
                 SetViewSize(view, view.uiCamera.pixelWidth, view.uiCamera.pixelHeight);
+
+            ShowWhatsNew();
         }
         protected override void Disable()
         {

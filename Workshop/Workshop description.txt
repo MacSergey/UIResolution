@@ -6,8 +6,8 @@ The game UI resolution is always Full HD (1920x1080) regardless of the selected 
 Just subscribe and activate the mod and the interface will be scaled to match screen resolution.
 Mod require Harmony
 
-WARNING!
-Some mod's UI elements cant be correct moved and scaled when resolution changed because they are not adapted for it and have fixed positions
+[b]WARNING![/b]
+Some mod's UI elements cant be correct moved and scaled when resolution changed because they are not adapted for it and have fixed positions. So their buttons and panels may be in the wrong places or out of screen.
 
 [HR][/HR]
 [h1]Join to discord for discussion and support[/h1]
