@@ -14,7 +14,7 @@ namespace UIResolution
 
         protected override void OnSettingsUI()
         {
-            
+            AddNotifications(GeneralTab);
         }
     }
 }
