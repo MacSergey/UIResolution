@@ -120,6 +120,12 @@
   <data name="Mod_Description" xml:space="preserve">
     <value>Change game UI resolution</value>
   </data>
+  <data name="Mod_WhatsNewMessage1_1" xml:space="preserve">
+    <value>- Added UI scale setting (game graphics tab).
+- Fix wrong default game UI elements after load game with changed resolution.
+- Fix wrong full screen border on screens with ratio other than 16:9.
+- Fix third party mods UI elements position as far as possible. Some mods dont adapted for change resolution, you should ask their authors for make UI flexible.</value>
+  </data>
   <data name="UIScale" xml:space="preserve">
     <value>UI Scale ({0}%)</value>
   </data>

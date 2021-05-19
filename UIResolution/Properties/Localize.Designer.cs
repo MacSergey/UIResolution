@@ -70,6 +70,18 @@ namespace UIResolution {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на - Added UI scale setting (game graphics tab).
+        ///- Fix wrong default game UI elements after load game with changed resolution.
+        ///- Fix wrong full screen border on screens with ratio other than 16:9.
+        ///- Fix third party mods UI elements position as far as possible. Some mods dont adapted for change resolution, you should ask their authors for make UI flexible..
+        /// </summary>
+        internal static string Mod_WhatsNewMessage1_1 {
+            get {
+                return ResourceManager.GetString("Mod_WhatsNewMessage1_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на UI Scale ({0}%).
         /// </summary>
         internal static string UIScale {
