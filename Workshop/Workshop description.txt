@@ -3,11 +3,12 @@
 [/code]
 
 The game UI resolution is always Full HD (1920x1080) regardless of the selected screen resolution, so the interface is too large on screens with a large diagonal.
-Just subscribe and activate the mod and the interface will be scaled to match screen resolution.
+After activate the mod the interface will be scaled to match screen resolution.
+Also you can change UI scale if the interface is too small or too big for you.
 Mod require Harmony
 
 [b]WARNING![/b]
-Some mod's UI elements cant be correct moved and scaled when resolution changed because they are not adapted for it and have fixed positions. So their buttons and panels may be in the wrong places or out of screen.
+Some third party mod's UI elements cant be correct moved and scaled when resolution changed because they are not adapted for change resolution and have fixed positions. So their buttons and panels may be in the wrong places or out of screen. You should ask their authors to make UI elements flexible.
 
 [HR][/HR]
 [h1]Join to discord for discussion and support[/h1]
