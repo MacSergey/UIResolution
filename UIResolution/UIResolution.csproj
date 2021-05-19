@@ -114,45 +114,20 @@
       <LastGenOutput>Localize.Designer.cs</LastGenOutput>
       <CustomToolNamespace>UIResolution</CustomToolNamespace>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\ModsCommon\LocalizeShared\CommonLocalize.de.resx">
-      <Link>Properties\CommonLocalize.de.resx</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\ModsCommon\LocalizeShared\CommonLocalize.es.resx">
-      <Link>Properties\CommonLocalize.es.resx</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\ModsCommon\LocalizeShared\CommonLocalize.fr.resx">
-      <Link>Properties\CommonLocalize.fr.resx</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\ModsCommon\LocalizeShared\CommonLocalize.ja.resx">
-      <Link>Properties\CommonLocalize.ja.resx</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\ModsCommon\LocalizeShared\CommonLocalize.nl.resx">
-      <Link>Properties\CommonLocalize.nl.resx</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\ModsCommon\LocalizeShared\CommonLocalize.pl.resx">
-      <Link>Properties\CommonLocalize.pl.resx</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\ModsCommon\LocalizeShared\CommonLocalize.pt.resx">
-      <Link>Properties\CommonLocalize.pt.resx</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\ModsCommon\LocalizeShared\CommonLocalize.ru.resx">
-      <Link>Properties\CommonLocalize.ru.resx</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\ModsCommon\LocalizeShared\CommonLocalize.zh-CN.resx">
-      <Link>Properties\CommonLocalize.zh-CN.resx</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\ModsCommon\LocalizeShared\CommonLocalize.resx">
-      <CustomToolNamespace>ModsCommon</CustomToolNamespace>
-      <SubType>Designer</SubType>
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <Link>Properties\CommonLocalize.resx</Link>
-      <LastGenOutput>CommonLocalize.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="..\ModsCommon\MessageBoxShared\MessageBoxShared.projitems" Label="Shared" />
   <Import Project="..\ModsCommon\UIShared\ModsUIShared.projitems" Label="Shared" />
   <Import Project="..\ModsCommon\ModShared\ModsCommonShared.projitems" Label="Shared" />
   <Import Project="..\ModsCommon\LocalizeShared\LocalizeShared.projitems" Label="Shared" />
+  <Import Project="..\ModsCommon\LocalizeShared\LocalizeShared.de.projitems" Label="Shared" />
+  <Import Project="..\ModsCommon\LocalizeShared\LocalizeShared.es.projitems" Label="Shared" />
+  <Import Project="..\ModsCommon\LocalizeShared\LocalizeShared.fr.projitems" Label="Shared" />
+  <Import Project="..\ModsCommon\LocalizeShared\LocalizeShared.ja.projitems" Label="Shared" />
+  <Import Project="..\ModsCommon\LocalizeShared\LocalizeShared.nl.projitems" Label="Shared" />
+  <Import Project="..\ModsCommon\LocalizeShared\LocalizeShared.pl.projitems" Label="Shared" />
+  <Import Project="..\ModsCommon\LocalizeShared\LocalizeShared.pt.projitems" Label="Shared" />
+  <Import Project="..\ModsCommon\LocalizeShared\LocalizeShared.ru.projitems" Label="Shared" />
+  <Import Project="..\ModsCommon\LocalizeShared\LocalizeShared.zh-CN.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>

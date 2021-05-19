@@ -23,7 +23,7 @@ namespace UIResolution
         public override string NameRaw => "UI Resolution";
         public override string Description => Localize.Mod_Description;
 
-        public override string WorkshopUrl => "https://steamcommunity.com/sharedfiles/filedetails/?edit=true&id=2487213155";
+        public override string WorkshopUrl => "https://steamcommunity.com/sharedfiles/filedetails/?id=2487213155";
         public override string BetaWorkshopUrl => "https://steamcommunity.com/sharedfiles/filedetails/?id=2487959237";
 
         public override List<Version> Versions { get; } = new List<Version>
