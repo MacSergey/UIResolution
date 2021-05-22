@@ -39,13 +39,17 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "LocalizeShared.zh-CN", "Mod
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "PluginsShared", "ModsCommon\PluginsShared\PluginsShared.shproj", "{B92E01E9-0DFC-455F-8164-F68A2A602FBC}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DependencyShared", "ModsCommon\DependencyShared\DependencyShared.shproj", "{2873738F-AA2C-4C8A-BE06-BC59ACCA56F0}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		ModsCommon\LocalizeShared\LocalizeShared.pl.projitems*{0814bfcf-bb66-493c-8dd9-ca17ee904afa}*SharedItemsImports = 13
 		ModsCommon\ModShared\ModsCommonShared.projitems*{24615a21-afa6-42c0-8b7a-4fb3329b056f}*SharedItemsImports = 13
+		ModsCommon\DependencyShared\DependencyShared.projitems*{2873738f-aa2c-4c8a-be06-bc59acca56f0}*SharedItemsImports = 13
 		ModsCommon\LocalizeShared\LocalizeShared.nl.projitems*{29a10501-0675-4335-98b1-4c6e9bd80d53}*SharedItemsImports = 13
 		ModsCommon\LocalizeShared\LocalizeShared.es.projitems*{2accf46a-2c39-455f-a4e9-0ca7b2b86a69}*SharedItemsImports = 13
 		ModsCommon\LocalizeShared\LocalizeShared.ru.projitems*{4093656f-54a7-4eb8-b021-4c18b5e16407}*SharedItemsImports = 13
+		ModsCommon\DependencyShared\DependencyShared.projitems*{6286e108-7c7c-472a-a502-2de06d3a92d0}*SharedItemsImports = 4
 		ModsCommon\LocalizeShared\LocalizeShared.de.projitems*{6286e108-7c7c-472a-a502-2de06d3a92d0}*SharedItemsImports = 4
 		ModsCommon\LocalizeShared\LocalizeShared.es.projitems*{6286e108-7c7c-472a-a502-2de06d3a92d0}*SharedItemsImports = 4
 		ModsCommon\LocalizeShared\LocalizeShared.fr.projitems*{6286e108-7c7c-472a-a502-2de06d3a92d0}*SharedItemsImports = 4
@@ -114,9 +118,10 @@ Global
 		{F135CD5D-4CAB-4347-BF44-1C6D0794A19D} = {0FFFB3B8-BDEC-4E06-868B-0D9731D0804A}
 		{6D76CE46-51A4-4596-8E5B-03261089BEDD} = {0FFFB3B8-BDEC-4E06-868B-0D9731D0804A}
 		{B92E01E9-0DFC-455F-8164-F68A2A602FBC} = {9954902F-3B8E-427A-A34F-C3C26E48761C}
+		{2873738F-AA2C-4C8A-BE06-BC59ACCA56F0} = {9954902F-3B8E-427A-A34F-C3C26E48761C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {97C26380-D213-457F-90D9-8EF0642976D3}
 		BuildVersion_StartDate = 2000/1/1
+		SolutionGuid = {97C26380-D213-457F-90D9-8EF0642976D3}
 	EndGlobalSection
 EndGlobal

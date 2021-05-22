@@ -21,8 +21,8 @@ namespace UIResolution
         public override string NameRaw => "UI Resolution";
         public override string Description => Localize.Mod_Description;
 
-        protected override string StableWorkshopUrl => "https://steamcommunity.com/sharedfiles/filedetails/?id=2487213155";
-        protected override string BetaWorkshopUrl => "https://steamcommunity.com/sharedfiles/filedetails/?id=2487959237";
+        protected override ulong StableWorkshopId => 2487213155ul;
+        protected override ulong BetaWorkshopId => 2487959237ul;
 
         public override List<Version> Versions { get; } = new List<Version>
         {
@@ -356,8 +356,12 @@ namespace UIResolution
                     uiResolution.parent?.RemoveUIComponent(uiResolution);
 
                     foreach (var component in uiResolution.GetComponentsInChildren<UIComponent>())
+                    {
+                        GameObject.Destroy(component.gameObject);
                         GameObject.Destroy(component);
+                    }
 
+                    GameObject.Destroy(uiResolution.gameObject);
                     GameObject.Destroy(uiResolution);
                 }
             }
