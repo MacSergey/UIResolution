@@ -127,6 +127,6 @@
 - Fix third party mods UI elements position as far as possible. Some mods dont adapted for change resolution, you should ask their authors for make UI flexible.</value>
   </data>
   <data name="UIScale" xml:space="preserve">
-    <value>Escala de UI ({0}%)</value>
+    <value>UI Scale ({0}%)</value>
   </data>
 </root>
