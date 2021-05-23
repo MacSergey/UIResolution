@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Mod_Description" xml:space="preserve">
-    <value>Change game UI resolution</value>
+    <value>UI部分のスケール（拡大率）を変更します</value>
   </data>
   <data name="Mod_WhatsNewMessage1_1" xml:space="preserve">
     <value>- Added UI scale setting (game graphics tab).
@@ -127,6 +127,6 @@
 - Fix third party mods UI elements position as far as possible. Some mods dont adapted for change resolution, you should ask their authors for make UI flexible.</value>
   </data>
   <data name="UIScale" xml:space="preserve">
-    <value>UIの拡大率 ({0}%)</value>
+    <value>UIの拡大率 ({0} %)</value>
   </data>
 </root>
