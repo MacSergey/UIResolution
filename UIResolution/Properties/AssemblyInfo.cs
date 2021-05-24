@@ -16,8 +16,8 @@ using System.Runtime.InteropServices;
 
 #if BETA
 [assembly: AssemblyVersion("1.0.0.182")]
-[assembly: AssemblyFileVersion("1.0.0.173")]
+[assembly: AssemblyFileVersion("1.0.0.182")]
 #else
-[assembly: AssemblyVersion("1.1")]
-[assembly: AssemblyFileVersion("1.1")]
+[assembly: AssemblyVersion("1.1.1")]
+[assembly: AssemblyFileVersion("1.1.1")]
 #endif

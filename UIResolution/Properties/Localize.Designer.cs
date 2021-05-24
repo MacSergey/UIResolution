@@ -82,6 +82,15 @@ namespace UIResolution {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на - Added missing dependencies checker..
+        /// </summary>
+        internal static string Mod_WhatsNewMessage1_1_1 {
+            get {
+                return ResourceManager.GetString("Mod_WhatsNewMessage1_1_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на UI Scale ({0}%).
         /// </summary>
         internal static string UIScale {
