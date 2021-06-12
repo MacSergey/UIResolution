@@ -1,3 +1,5 @@
+[HR][/HR] 
+[img]https://i.imgur.com/sLtPy2b.png[/img]
 [code][h1]Overview[/h1]
 [list][h2]This mod changes the game UI resolution to match the selected screen resolution[/h2][/list]
 [/code]

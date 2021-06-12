@@ -12,8 +12,9 @@ namespace UIResolution
     {
         public static SavedFloat UIScale { get; } = new SavedFloat(nameof(UIScale), SettingsFile, 1f, true);
 
-        protected override void OnSettingsUI()
+        protected override void FillSettings()
         {
+            base.FillSettings();
             AddNotifications(GeneralTab);
         }
     }

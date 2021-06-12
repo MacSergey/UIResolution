@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
+using System.Resources;
 using System.Text;
 using ColossalFramework;
 using ColossalFramework.Globalization;
@@ -38,17 +39,7 @@ namespace UIResolution
 #endif
 
         protected override string IdRaw => nameof(UIResolution);
-        public override CultureInfo Culture
-        {
-            get => Localize.Culture;
-            protected set
-            {
-                Localize.Culture = value;
-
-                if (UIScaleLabel != null)
-                    SetScaleText();
-            }
-        }
+        protected override ResourceManager LocalizeManager => Localize.ResourceManager;
 
         private static UISlider UIScaleSlider { get; set; }
         private static UILabel UIScaleLabel { get; set; }
@@ -197,7 +188,13 @@ namespace UIResolution
 
             RemoveScale();
         }
-        public override string GetLocalizeString(string str, CultureInfo culture = null) => Localize.ResourceManager.GetString(str, culture ?? Culture);
+        protected override void SetCulture(CultureInfo culture)
+        {
+            Localize.Culture = culture;
+
+            if (UIScaleLabel != null)
+                SetScaleText();
+        }
         protected override void GetSettings(UIHelperBase helper)
         {
             var settings = new Settings();
