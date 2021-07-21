@@ -272,7 +272,7 @@ namespace UIResolution
             width = (int)Mathf.Max(width / SelectedUIScale, 1080f / height * width);
             height = (int)Math.Max(height / SelectedUIScale, 1080f);
 
-            AccessTools.Field(typeof(UIView), "m_FixedWidth").SetValue(view, width);
+            typeof(UIView).GetField("m_FixedWidth", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(view, width);
             view.fixedHeight = height;
         }
         public static void FixAnchor(UIView view)
@@ -369,7 +369,11 @@ namespace UIResolution
     public static class Patcher
     {
         private delegate void OnResolutionDelegate(UIComponent component, Vector2 previousResolution, Vector2 currentResolution);
-        private static OnResolutionDelegate UIComponentOnResolutionChanged { get; } = AccessTools.MethodDelegate<OnResolutionDelegate>(AccessTools.Method(typeof(UIComponent), "OnResolutionChanged"), virtualCall: true);
+        private static OnResolutionDelegate UIComponentOnResolutionChanged { get; }
+        static Patcher()
+        {
+            UIComponentOnResolutionChanged = AccessTools.MethodDelegate<OnResolutionDelegate>(AccessTools.Method(typeof(UIComponent), "OnResolutionChanged"), virtualCall: true);
+        }
 
         public static void SetResolutionPostfix(int width, int height)
         {
