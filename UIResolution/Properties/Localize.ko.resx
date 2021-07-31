@@ -118,15 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Mod_Description" xml:space="preserve">
-    <value>Изменение разрешения игрового UI</value>
+    <value>게임 UI 해상도 변경</value>
   </data>
   <data name="Mod_WhatsNewMessage1_1" xml:space="preserve">
-    <value>- Добавлена настройка масштаба интерфейса (вкладка графики).
-- Исправлено неправильное положение некоторых стандартных элементов интерфейса после загрузки игры с измененным разрешением.
-- Исправлена рамка полноэкранного режима на экранах с соотношением сторон отличным от 16:9.
-- Исправлено положение элементов интерфейса других модов насколько это возможно. Некоторые моды не адаптированы под изменения разрешения, нужно просить их авторов сделать интерфейс изменяемым.</value>
+    <value>- Added UI scale setting (game graphics tab).
+- Fix wrong default game UI elements after load game with changed resolution.
+- Fix wrong full screen border on screens with ratio other than 16:9.
+- Fix third party mods UI elements position as far as possible. Some mods dont adapted for change resolution, you should ask their authors for make UI flexible.</value>
   </data>
   <data name="UIScale" xml:space="preserve">
-    <value>Масштаб UI ({0}%)</value>
+    <value>UI 크기 ({0}%)</value>
   </data>
 </root>
