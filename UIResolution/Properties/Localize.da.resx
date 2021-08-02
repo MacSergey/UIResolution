@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Mod_Description" xml:space="preserve">
-    <value>Změnit rozlišení UI ve hře</value>
+    <value>Skift UI opløsning</value>
   </data>
   
   <data name="UIScale" xml:space="preserve">
-    <value>Měřítko UI ({0}%)</value>
+    <value>UI Skala ({0}%)</value>
   </data>
 </root>

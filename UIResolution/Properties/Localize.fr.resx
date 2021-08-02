@@ -121,10 +121,10 @@
     <value>Changer la résolution de l'interface</value>
   </data>
   <data name="Mod_WhatsNewMessage1_1" xml:space="preserve">
-    <value>- Added UI scale setting (game graphics tab).
-- Fix wrong default game UI elements after load game with changed resolution.
-- Fix wrong full screen border on screens with ratio other than 16:9.
-- Fix third party mods UI elements position as far as possible. Some mods dont adapted for change resolution, you should ask their authors for make UI flexible.</value>
+    <value>- Ajout du réglage de l'échelle de l'interface utilisateur (onglet graphique du jeu).
+- Correction des éléments de l'interface par défaut après chargement du jeu avec une résolution modifiée.
+- Correction de la mauvaise bordure en plein écran sur les écrans avec un ratio autre que 16:9.
+- Correction de la position des éléments graphique des mods tiers aussi loin que possible. Certains mods ne sont pas adaptés pour des changements de résolution, vous devriez demander à leurs auteurs de rendre l'interface utilisateur flexible.</value>
   </data>
   <data name="UIScale" xml:space="preserve">
     <value>Échelle de l'UI ({0}%)</value>

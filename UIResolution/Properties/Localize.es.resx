@@ -118,15 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Mod_Description" xml:space="preserve">
-    <value>Cambiar la resolución de la interfaz de usuario del juego</value>
+    <value>Cambiar la resolución de la interfaz de usuario</value>
   </data>
-  <data name="Mod_WhatsNewMessage1_1" xml:space="preserve">
-    <value>- Added UI scale setting (game graphics tab).
-- Fix wrong default game UI elements after load game with changed resolution.
-- Fix wrong full screen border on screens with ratio other than 16:9.
-- Fix third party mods UI elements position as far as possible. Some mods dont adapted for change resolution, you should ask their authors for make UI flexible.</value>
-  </data>
+  
   <data name="UIScale" xml:space="preserve">
-    <value>Escala de interfaz de usuario({0}%)</value>
+    <value>Escala de interfaz de usuario ({0}%)</value>
   </data>
 </root>
