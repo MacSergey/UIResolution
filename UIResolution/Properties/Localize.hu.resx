@@ -122,6 +122,6 @@
   </data>
   
   <data name="UIScale" xml:space="preserve">
-    <value>UI Skála ({0}%)</value>
+    <value>UI méretarány ({0}%)</value>
   </data>
 </root>
