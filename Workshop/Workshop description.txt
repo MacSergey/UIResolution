@@ -19,3 +19,5 @@ Some third party mod's UI elements cant be correct moved and scaled when resolut
 [HR][/HR]
 [h1]Source code[/h1]
 [url=https://github.com/MacSergey/UIResolution][img]https://i.imgur.com/DczUXYq.png[/img][/url]
+
+[HR][/HR][i]For full transparency: I am an employee at Colossal Order, however this is my personal account and as such all opinions, content and contributions to the community reflect my own views and interests, and are not created nor maintained as part of my job. Like all user generated content, this is not officially supported content and should be used at your own risk.[/i]
