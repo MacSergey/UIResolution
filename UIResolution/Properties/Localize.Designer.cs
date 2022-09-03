@@ -70,10 +70,10 @@ namespace UIResolution {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на - Added UI scale setting (game graphics tab).
-        ///- Fix wrong default game UI elements after load game with changed resolution.
-        ///- Fix wrong full screen border on screens with ratio other than 16:9.
-        ///- Fix third party mods UI elements position as far as possible. Some mods dont adapted for change resolution, you should ask their authors for make UI flexible..
+        ///   Ищет локализованную строку, похожую на [NEW] Added UI scale setting (game graphics tab).
+        ///[FIXED] Fix wrong default game UI elements after load game with changed resolution.
+        ///[FIXED] Fix wrong full screen border on screens with ratio other than 16:9.
+        ///[FIXED] Fix third party mods UI elements position as far as possible. Some mods dont adapted for change resolution, you should ask their authors for make UI flexible..
         /// </summary>
         internal static string Mod_WhatsNewMessage1_1 {
             get {
@@ -82,11 +82,20 @@ namespace UIResolution {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на - Added missing dependencies checker..
+        ///   Ищет локализованную строку, похожую на [NEW] Added missing dependency checker..
         /// </summary>
         internal static string Mod_WhatsNewMessage1_1_1 {
             get {
                 return ResourceManager.GetString("Mod_WhatsNewMessage1_1_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на [TRANSLATION] Added Italian and Korean translations..
+        /// </summary>
+        internal static string Mod_WhatsNewMessage1_1_2 {
+            get {
+                return ResourceManager.GetString("Mod_WhatsNewMessage1_1_2", resourceCulture);
             }
         }
         

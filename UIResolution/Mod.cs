@@ -25,12 +25,14 @@ namespace UIResolution
         protected override ulong StableWorkshopId => 2487213155ul;
         protected override ulong BetaWorkshopId => 2487959237ul;
 
-        public override List<Version> Versions { get; } = new List<Version>
+        public override List<ModVersion> Versions { get; } = new List<ModVersion>
         {
-            new Version("1.1.1"),
-            new Version("1.1"),
-            new Version("1.0"),
+            new ModVersion(new Version("1.1.2"), new DateTime(2021,8,1)),
+            new ModVersion(new Version("1.1.1"), new DateTime(2021,5,24)),
+            new ModVersion(new Version("1.1"), new DateTime(2021,5,19)),
+            new ModVersion(new Version("1.0"), new DateTime(2021,5,15)),
         };
+        protected override Version RequiredGameVersion => new Version(1, 14, 1, 2);
 
 #if BETA
         public override bool IsBeta => true;
