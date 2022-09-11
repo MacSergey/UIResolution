@@ -121,6 +121,8 @@
     <value>改变用户界面分辨率</value>
   </data>
   
+  
+  
   <data name="UIScale" xml:space="preserve">
     <value>UI缩放 ({0}%)</value>
   </data>
