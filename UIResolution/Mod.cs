@@ -27,12 +27,13 @@ namespace UIResolution
 
         public override List<ModVersion> Versions { get; } = new List<ModVersion>
         {
+            new ModVersion(new Version("1.2"), new DateTime(2022,9,14)),
             new ModVersion(new Version("1.1.2"), new DateTime(2021,8,1)),
             new ModVersion(new Version("1.1.1"), new DateTime(2021,5,24)),
             new ModVersion(new Version("1.1"), new DateTime(2021,5,19)),
             new ModVersion(new Version("1.0"), new DateTime(2021,5,15)),
         };
-        protected override Version RequiredGameVersion => new Version(1, 14, 1, 2);
+        protected override Version RequiredGameVersion => new Version(1, 15, 0, 5);
 
 #if BETA
         public override bool IsBeta => true;
@@ -165,6 +166,10 @@ namespace UIResolution
             "(Library) AcademicYearReportPanel",
             "(Library) FishingInfoViewPanel",
             "(Library) TutorialsLogPanel",
+            "(Library) EpicAchievementPanel", 
+            "(Library) AirportWorldInfoPanel", 
+            "(Library) PedestrianZoneWorldInfoPanel", 
+            "(Library) ServicePointInfoViewPanel",
         };
 
         protected override void Enable()
@@ -275,7 +280,10 @@ namespace UIResolution
             height = (int)Math.Max(height / SelectedUIScale, 1080f);
 
             typeof(UIView).GetField("m_FixedWidth", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(view, width);
-            view.fixedHeight = height;
+            AccessTools.Field(typeof(UIView), "m_FixedWidth").SetValue(view, width);
+            int oldHeight = (int)AccessTools.Field(typeof(UIView), "m_FixedHeight").GetValue(view);
+            AccessTools.Field(typeof(UIView), "m_FixedHeight").SetValue(view, height);
+            AccessTools.Method(typeof(UIView), "OnResolutionChanged", new Type[2] { typeof(int), typeof(int) }).Invoke(view, new object[2] { oldHeight, height });
         }
         public static void FixAnchor(UIView view)
         {
@@ -322,7 +330,7 @@ namespace UIResolution
             UIScaleSlider.relativePosition = new Vector2(0f, 34f);
             UIScaleSlider.minValue = 0.5f;
             UIScaleSlider.maxValue = 2f;
-            UIScaleSlider.stepSize = 0.1f;
+            UIScaleSlider.stepSize = 0.05f;
 
             UIScaleLabel = uiScale.Find<UILabel>("Label");
             UIScaleLabel.name = nameof(UIScaleLabel);

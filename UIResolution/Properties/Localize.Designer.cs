@@ -100,6 +100,16 @@ namespace UIResolution {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на [UPDATED] Added Plazas &amp; Promenades DLC support.
+        ///[UPDATED] Step of resolution is 5% instead of 10%..
+        /// </summary>
+        internal static string Mod_WhatsNewMessage1_2 {
+            get {
+                return ResourceManager.GetString("Mod_WhatsNewMessage1_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на UI Scale ({0}%).
         /// </summary>
         internal static string UIScale {
