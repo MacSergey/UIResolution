@@ -121,6 +121,8 @@
     <value>Cambiar la resolución de la interfaz de usuario</value>
   </data>
   
+  
+  
   <data name="UIScale" xml:space="preserve">
     <value>Escala de interfaz de usuario ({0}%)</value>
   </data>

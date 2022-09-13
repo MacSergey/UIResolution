@@ -117,18 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Mod_Description" xml:space="preserve">
-    <value>Changer la résolution de l'interface</value>
-  </data>
-  <data name="Mod_WhatsNewMessage1_1" xml:space="preserve">
-    <value>[NEW] Ajout du réglage de l'échelle de l'interface utilisateur (onglet graphique du jeu).
-[FIXED] Correction des éléments de l'interface par défaut après chargement du jeu avec une résolution modifiée.
-[FIXED] Correction de la mauvaise bordure en plein écran sur les écrans avec un ratio autre que 16:9.
-[FIXED] Correction de la position des éléments graphique des mods tiers aussi loin que possible. Certains mods ne sont pas adaptés pour des changements de résolution, vous devriez demander à leurs auteurs de rendre l'interface utilisateur flexible.</value>
-  </data>
   
   
-  <data name="UIScale" xml:space="preserve">
-    <value>Échelle de l'UI ({0}%)</value>
-  </data>
+  
+  
+  
 </root>

@@ -121,6 +121,8 @@
     <value>Zmień rozdzielczość interfejsu gry</value>
   </data>
   
+  
+  
   <data name="UIScale" xml:space="preserve">
     <value>Skalowanie UI ({0}%)</value>
   </data>

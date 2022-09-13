@@ -121,6 +121,8 @@
     <value>Cambia risoluzione UI</value>
   </data>
   
+  
+  
   <data name="UIScale" xml:space="preserve">
     <value>Scala Interfaccia Utente ({0}%)</value>
   </data>

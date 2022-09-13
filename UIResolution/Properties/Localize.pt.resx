@@ -121,6 +121,8 @@
     <value>Alterar resolução da interface do jogo</value>
   </data>
   
+  
+  
   <data name="UIScale" xml:space="preserve">
     <value>Escala da UI ({0}%)</value>
   </data>
