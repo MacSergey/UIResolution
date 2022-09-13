@@ -121,6 +121,8 @@
     <value>게임 UI 해상도 변경</value>
   </data>
   
+  
+  
   <data name="UIScale" xml:space="preserve">
     <value>UI 크기 ({0}%)</value>
   </data>

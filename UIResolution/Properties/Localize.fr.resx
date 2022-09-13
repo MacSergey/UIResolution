@@ -126,6 +126,8 @@
 [FIXED] Correction de la mauvaise bordure en plein écran sur les écrans avec un ratio autre que 16:9.
 [FIXED] Correction de la position des éléments graphique des mods tiers aussi loin que possible. Certains mods ne sont pas adaptés pour des changements de résolution, vous devriez demander à leurs auteurs de rendre l'interface utilisateur flexible.</value>
   </data>
+  
+  
   <data name="UIScale" xml:space="preserve">
     <value>Échelle de l'UI ({0}%)</value>
   </data>

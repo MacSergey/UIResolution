@@ -121,6 +121,12 @@
     <value>Ändere die Auflösung der Benutzer-Oberfläche</value>
   </data>
   
+  <data name="Mod_WhatsNewMessage1_1_1" xml:space="preserve">
+    <value>[NEW] Prüfung auf fehlende Abhängigkeiten hinzugefügt.</value>
+  </data>
+  <data name="Mod_WhatsNewMessage1_1_2" xml:space="preserve">
+    <value>[TRANSLATION] Italienische und koreanische Übersetzungen hinzugefügt.</value>
+  </data>
   <data name="UIScale" xml:space="preserve">
     <value>UI-Skalierung ({0}%)</value>
   </data>
