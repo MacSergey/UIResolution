@@ -126,8 +126,12 @@
 [FIXED] Исправлена рамка полноэкранного режима на экранах с соотношением сторон отличным от 16:9.
 [FIXED] Исправлено положение элементов интерфейса других модов насколько это возможно. Некоторые моды не адаптированы под изменения разрешения, нужно просить их авторов сделать интерфейс изменяемым.</value>
   </data>
-  
-  
+  <data name="Mod_WhatsNewMessage1_1_1" xml:space="preserve">
+    <value>[NEW] Добавлено отслеживание недостоющих зависимостей.</value>
+  </data>
+  <data name="Mod_WhatsNewMessage1_1_2" xml:space="preserve">
+    <value>[TRANSLATION] Добавлены итальянский и корейский переводы.</value>
+  </data>
   <data name="UIScale" xml:space="preserve">
     <value>Масштаб UI ({0}%)</value>
   </data>
