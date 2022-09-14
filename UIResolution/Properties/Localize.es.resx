@@ -121,9 +121,16 @@
     <value>Cambiar la resolución de la interfaz de usuario</value>
   </data>
   
-  
-  
-  
+  <data name="Mod_WhatsNewMessage1_1_1" xml:space="preserve">
+    <value>[NEW] Chequeo de dependencias.</value>
+  </data>
+  <data name="Mod_WhatsNewMessage1_1_2" xml:space="preserve">
+    <value>[TRANSLATION] Traducciones al Italiano y Coreano.</value>
+  </data>
+  <data name="Mod_WhatsNewMessage1_2" xml:space="preserve">
+    <value>[UPDATED] Soporte para DLC Plazas &amp; Promedades.
+[UPDATED] Ajuste de resolución en pasos de 5% en vez de 10%.</value>
+  </data>
   <data name="UIScale" xml:space="preserve">
     <value>Escala de interfaz de usuario ({0}%)</value>
   </data>

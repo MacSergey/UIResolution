@@ -127,7 +127,10 @@
   <data name="Mod_WhatsNewMessage1_1_2" xml:space="preserve">
     <value>[TRANSLATION] Italienische und koreanische Übersetzungen hinzugefügt.</value>
   </data>
-  
+  <data name="Mod_WhatsNewMessage1_2" xml:space="preserve">
+    <value>[UPDATED] DLC-Unterstützung für Plazas &amp; Promenades hinzugefügt.
+[UPDATED] Schrittweite Auflösung beträgt 5% statt 10%.</value>
+  </data>
   <data name="UIScale" xml:space="preserve">
     <value>UI-Skalierung ({0}%)</value>
   </data>

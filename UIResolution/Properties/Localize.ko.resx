@@ -123,7 +123,10 @@
   
   
   
-  
+  <data name="Mod_WhatsNewMessage1_2" xml:space="preserve">
+    <value>[UPDATED] Plazas &amp; Promenades DLC를 지원합니다.
+[UPDATED] 해상도를 기존의 10% 대신 5% 단위로 조절할 수 있습니다.</value>
+  </data>
   <data name="UIScale" xml:space="preserve">
     <value>UI 크기 ({0}%)</value>
   </data>
