@@ -121,9 +121,16 @@
     <value>改变用户界面分辨率</value>
   </data>
   
-  
-  
-  
+  <data name="Mod_WhatsNewMessage1_1_1" xml:space="preserve">
+    <value>[NEW] 添加缺失前置模组检查器。</value>
+  </data>
+  <data name="Mod_WhatsNewMessage1_1_2" xml:space="preserve">
+    <value>[TRANSLATION] 增加丹麦语和土耳其语。</value>
+  </data>
+  <data name="Mod_WhatsNewMessage1_2" xml:space="preserve">
+    <value>[UPDATED] 已添加 Plazas &amp; Promenades DLC 支持
+[UPDATED] 步骤分辨率为5%而不是10%。</value>
+  </data>
   <data name="UIScale" xml:space="preserve">
     <value>UI缩放 ({0}%)</value>
   </data>

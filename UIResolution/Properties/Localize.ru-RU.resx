@@ -118,20 +118,25 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Mod_Description" xml:space="preserve">
-    <value>게임 UI 해상도 변경</value>
+    <value>Изменение разрешения игрового UI</value>
   </data>
-  
+  <data name="Mod_WhatsNewMessage1_1" xml:space="preserve">
+    <value>[NEW] Добавлена настройка масштаба интерфейса (вкладка графики).
+[FIXED] Исправлено неправильное положение некоторых стандартных элементов интерфейса после загрузки игры с измененным разрешением.
+[FIXED] Исправлена рамка полноэкранного режима на экранах с соотношением сторон отличным от 16:9.
+[FIXED] Исправлено положение элементов интерфейса других модов насколько это возможно. Некоторые моды не адаптированы под изменения разрешения, нужно просить их авторов сделать интерфейс изменяемым.</value>
+  </data>
   <data name="Mod_WhatsNewMessage1_1_1" xml:space="preserve">
-    <value>[NEW] 누락된 디펜던시 확인 기능이 추가되었습니다.</value>
+    <value>[NEW] Добавлено отслеживание недостоющих зависимостей.</value>
   </data>
   <data name="Mod_WhatsNewMessage1_1_2" xml:space="preserve">
-    <value>[TRANSLATION] 이탈리아어와 한국어 번역이 추가되었습니다.</value>
+    <value>[TRANSLATION] Добавлены итальянский и корейский переводы.</value>
   </data>
   <data name="Mod_WhatsNewMessage1_2" xml:space="preserve">
-    <value>[UPDATED] Plazas &amp; Promenades DLC를 지원합니다.
-[UPDATED] 해상도를 기존의 10% 대신 5% 단위로 조절할 수 있습니다.</value>
+    <value>[UPDATED] Добавлена поддержка Plazas &amp; Promenades DLC.
+[UPDATED] Шаг изменения разрешения теперь 5% вместо 10%.</value>
   </data>
   <data name="UIScale" xml:space="preserve">
-    <value>UI 크기 ({0}%)</value>
+    <value>Масштаб UI ({0}%)</value>
   </data>
 </root>

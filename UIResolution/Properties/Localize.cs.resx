@@ -118,20 +118,25 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Mod_Description" xml:space="preserve">
-    <value>게임 UI 해상도 변경</value>
+    <value>Změnit rozlišení uživatelského rozhraní hry</value>
   </data>
-  
+  <data name="Mod_WhatsNewMessage1_1" xml:space="preserve">
+    <value>[NEW] Přidáno nastavení měřítka uživatelského rozhraní (karta nastavení grafiky).
+[FIXED] Oprava chybného výchozího nastavení prvků uživatelského rozhraní po načtení hry se změněným rozlišením.
+[FIXED] Oprava chybného rámečku na obrazovkách s jiným poměrem než 16:9.
+[FIXED] Oprava pozice prvků uživatelského rozhraní modů třetích stran, pokud je to možné. Některé módy nejsou přizpůsobeny pro změny rozlišení, měli byste požádat jejich autory, aby učinili jejich UI flexibilní.</value>
+  </data>
   <data name="Mod_WhatsNewMessage1_1_1" xml:space="preserve">
-    <value>[NEW] 누락된 디펜던시 확인 기능이 추가되었습니다.</value>
+    <value>[NEW] Přidáno ověření chybějících závislostí.</value>
   </data>
   <data name="Mod_WhatsNewMessage1_1_2" xml:space="preserve">
-    <value>[TRANSLATION] 이탈리아어와 한국어 번역이 추가되었습니다.</value>
+    <value>[TRANSLATION] Přidány Italské a Korejské překlady.</value>
   </data>
   <data name="Mod_WhatsNewMessage1_2" xml:space="preserve">
-    <value>[UPDATED] Plazas &amp; Promenades DLC를 지원합니다.
-[UPDATED] 해상도를 기존의 10% 대신 5% 단위로 조절할 수 있습니다.</value>
+    <value>[UPDATED] Přidána podpora DLC Plazas &amp; Promenades.
+[UPDATED] Krok změny rozlišení je 5% místo 10%.</value>
   </data>
   <data name="UIScale" xml:space="preserve">
-    <value>UI 크기 ({0}%)</value>
+    <value>Měřítko uživatelského rozhraní ({0}%)</value>
   </data>
 </root>
