@@ -14,11 +14,17 @@ Mod require Harmony
 Some third party mod's UI elements cant be correct moved and scaled when resolution changed because they are not adapted for change resolution and have fixed positions. So their buttons and panels may be in the wrong places or out of screen. You should ask their authors to make UI elements flexible.
 
 [HR][/HR]
-[h1]Join to discord for discussion and support[/h1]
-[url=https://discord.gg/NnwhuBKMqj][img]https://i.imgur.com/bnDNN2x.png[/img][/url]
+[h1]Support[/h1]
+If you have any problems with mod or errors occur, you should describe your problem as much detailed as possible, comments like “mod does not work” will be ignored.
+Also, you should provide the game log, comments about errors without game log will be ignored too. Read [url=https://steamcommunity.com/sharedfiles/filedetails/?id=463645931]here[/url] how to share log. 
+
+Although, the best way to solve problems is joining to my discord and write to [b]#Support[/b] channel, unfortunately, steam comments is very useless for conversation. 
+
+[url=https://discord.gg/NnwhuBKMqj][h3]Join discord server[/h3]
+[img]https://i.imgur.com/bnDNN2x.png[/img][/url]
 
 [HR][/HR]
 [h1]Source code[/h1]
-[url=https://github.com/MacSergey/UIResolution][img]https://i.imgur.com/DczUXYq.png[/img][/url]
+[url=https://github.com/MacSergey/UIResolution][h3]Get from GitHub[/h3][img]https://i.imgur.com/DczUXYq.png[/img][/url]
 
 [HR][/HR][i]For full transparency: I am an employee at Colossal Order, however this is my personal account and as such all opinions, content and contributions to the community reflect my own views and interests, and are not created nor maintained as part of my job. Like all user generated content, this is not officially supported content and should be used at your own risk.[/i]
