@@ -33,7 +33,7 @@ namespace UIResolution
             new ModVersion(new Version("1.1"), new DateTime(2021,5,19)),
             new ModVersion(new Version("1.0"), new DateTime(2021,5,15)),
         };
-        protected override Version RequiredGameVersion => new Version(1, 15, 0, 7);
+        protected override Version RequiredGameVersion => new Version(1, 15, 1, 4);
 
 #if BETA
         public override bool IsBeta => true;
