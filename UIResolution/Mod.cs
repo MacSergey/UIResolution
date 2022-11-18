@@ -42,7 +42,7 @@ namespace UIResolution
 #endif
 
         protected override string IdRaw => nameof(UIResolution);
-        protected override ResourceManager LocalizeManager => Localize.ResourceManager;
+        protected override LocalizeManager LocalizeManager => Localize.LocaleManager;
 
         private static UISlider UIScaleSlider { get; set; }
         private static UILabel UIScaleLabel { get; set; }
