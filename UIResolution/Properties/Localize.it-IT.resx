@@ -121,9 +121,16 @@
     <value>Cambia risoluzione UI</value>
   </data>
   
-  
-  
-  
+  <data name="Mod_WhatsNewMessage1_1_1" xml:space="preserve">
+    <value>[NEW] Aggiunto il controllo delle dipendenze mancante.</value>
+  </data>
+  <data name="Mod_WhatsNewMessage1_1_2" xml:space="preserve">
+    <value>[TRANSLATION] Aggiunte traduzioni in italiano e coreano.</value>
+  </data>
+  <data name="Mod_WhatsNewMessage1_2" xml:space="preserve">
+    <value>[UPDATED] Aggiunto il supporto DLC Plazas &amp; Promenades.
+[UPDATED] Fase di risoluzione è del 5% invece del 10%.</value>
+  </data>
   <data name="UIScale" xml:space="preserve">
     <value>Scala Interfaccia Utente ({0}%)</value>
   </data>
