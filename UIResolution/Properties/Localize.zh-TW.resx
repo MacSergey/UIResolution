@@ -118,28 +118,23 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Mod_Description" xml:space="preserve">
-    <value>Changer la résolution de l'interface</value>
+    <value>改變使用者介面解析度</value>
   </data>
-  <data name="Mod_WhatsNewMessage1_1" xml:space="preserve">
-    <value>[NEW] Ajout du réglage de l'échelle de l'interface utilisateur (onglet graphique du jeu).
-[FIXED] Correction des éléments de l'interface par défaut après chargement du jeu avec une résolution modifiée.
-[FIXED] Correction de la mauvaise bordure en plein écran sur les écrans avec un ratio autre que 16:9.
-[FIXED] Correction de la position des éléments graphique des mods tiers aussi loin que possible. Certains mods ne sont pas adaptés pour des changements de résolution, vous devriez demander à leurs auteurs de rendre l'interface utilisateur flexible.</value>
-  </data>
+  
   <data name="Mod_WhatsNewMessage1_1_1" xml:space="preserve">
-    <value>[NEW] Ajout d'un vérificateur de dépendences.</value>
+    <value>[新功能] 添加缺失前置模組檢查器。</value>
   </data>
   <data name="Mod_WhatsNewMessage1_1_2" xml:space="preserve">
-    <value>[TRANSLATION] Ajout des traductions italiennes et coréennes.</value>
+    <value>[翻譯] 增加丹麥語和土耳其語。</value>
   </data>
   <data name="Mod_WhatsNewMessage1_2" xml:space="preserve">
-    <value>[UPDATED] Ajout du support du DLC Plazas &amp; Promenades.
-[UPDATED] L'incrément de résolution passe à 5% au lieu de 10%.</value>
+    <value>[更新] 已添加對 Plazas &amp; Promenades DLC 更新的支持。
+[UPDATED] 每次解析度改動量為 5% 而不是 10% 。</value>
   </data>
   <data name="Mod_WhatsNewMessage1_3" xml:space="preserve">
-    <value>[UPDATED] Nouvelle interface pour les paramètres</value>
+    <value>[更新] 新的設置介面</value>
   </data>
   <data name="UIScale" xml:space="preserve">
-    <value>Échelle de l'UI ({0}%)</value>
+    <value>UI縮放 ({0}%)</value>
   </data>
 </root>

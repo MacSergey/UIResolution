@@ -136,6 +136,9 @@
     <value>[UPDATED] Added Plazas &amp; Promenades DLC support.
 [UPDATED] Step of resolution is 5% instead of 10%.</value>
   </data>
+  <data name="Mod_WhatsNewMessage1_3" xml:space="preserve">
+    <value>[UPDATED] New settings UI</value>
+  </data>
   <data name="UIScale" xml:space="preserve">
     <value>UI Scale ({0}%)</value>
   </data>

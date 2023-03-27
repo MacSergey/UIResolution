@@ -131,6 +131,9 @@
     <value>[UPDATED] DLC-Unterstützung für Plazas &amp; Promenades hinzugefügt.
 [UPDATED] Schrittweite Auflösung beträgt 5% statt 10%.</value>
   </data>
+  <data name="Mod_WhatsNewMessage1_3" xml:space="preserve">
+    <value>[UPDATED] Neue Benutzeroberfläche für Einstellungen</value>
+  </data>
   <data name="UIScale" xml:space="preserve">
     <value>UI-Skalierung ({0}%)</value>
   </data>

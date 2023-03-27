@@ -118,28 +118,23 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Mod_Description" xml:space="preserve">
-    <value>Changer la résolution de l'interface</value>
+    <value>Зміна розширення ігрового UI</value>
   </data>
-  <data name="Mod_WhatsNewMessage1_1" xml:space="preserve">
-    <value>[NEW] Ajout du réglage de l'échelle de l'interface utilisateur (onglet graphique du jeu).
-[FIXED] Correction des éléments de l'interface par défaut après chargement du jeu avec une résolution modifiée.
-[FIXED] Correction de la mauvaise bordure en plein écran sur les écrans avec un ratio autre que 16:9.
-[FIXED] Correction de la position des éléments graphique des mods tiers aussi loin que possible. Certains mods ne sont pas adaptés pour des changements de résolution, vous devriez demander à leurs auteurs de rendre l'interface utilisateur flexible.</value>
-  </data>
+  
   <data name="Mod_WhatsNewMessage1_1_1" xml:space="preserve">
-    <value>[NEW] Ajout d'un vérificateur de dépendences.</value>
+    <value>[NEW] Додано перевірки відсутніх залежностей.</value>
   </data>
   <data name="Mod_WhatsNewMessage1_1_2" xml:space="preserve">
-    <value>[TRANSLATION] Ajout des traductions italiennes et coréennes.</value>
+    <value>[TRANSLATION] Додано італійські та корейські переклади.</value>
   </data>
   <data name="Mod_WhatsNewMessage1_2" xml:space="preserve">
-    <value>[UPDATED] Ajout du support du DLC Plazas &amp; Promenades.
-[UPDATED] L'incrément de résolution passe à 5% au lieu de 10%.</value>
+    <value>[UPDATED] Додано підтримку Plazas і Promenades DLC.
+[UPDATED] Крок роздільної здатності на 5% замість 10%.</value>
   </data>
   <data name="Mod_WhatsNewMessage1_3" xml:space="preserve">
-    <value>[UPDATED] Nouvelle interface pour les paramètres</value>
+    <value>[UPDATED] Новий інтерфейс налаштувань</value>
   </data>
   <data name="UIScale" xml:space="preserve">
-    <value>Échelle de l'UI ({0}%)</value>
+    <value>Масштаб UI ({0}%)</value>
   </data>
 </root>
