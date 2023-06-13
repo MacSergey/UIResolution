@@ -15,10 +15,12 @@
     <Configurations>Beta Debug;Beta Release;Stable Debug;Stable Release</Configurations>
   </PropertyGroup>
 
-  <AssemblyVersion>1.0.0.200</AssemblyVersion>
-  
+  <PropertyGroup>
+    <AssemblyVersion>1.0.0.200</AssemblyVersion>
+  </PropertyGroup>
+
   <PropertyGroup Condition="'$(Configuration)' == 'Stable Release' OR '$(Configuration)' == 'Stable Debug'">
-    <AssemblyVersion>1.3.0.1</AssemblyVersion>
+    <AssemblyVersion>1.3.0.2</AssemblyVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Stable Release|AnyCPU'">
@@ -163,13 +165,13 @@
   <Import Project="..\ModsCommon\LocalizeShared\ru-RU\LocalizeShared.ru-RU.projitems" Label="Shared" />
   <Import Project="..\ModsCommon\LocalizeShared\es-ES\LocalizeShared.es-ES.projitems" Label="Shared" />
   <Import Project="..\ModsCommon\MathExtension\MathExtension.projitems" Label="Shared" />
-  
-  
+
+
   <PropertyGroup Condition="'$(Configuration)' == 'Stable Release' OR '$(Configuration)' == 'Stable Debug'">
     <WorkshopId>2487213155</WorkshopId>
     <Type>Stable</Type>
   </PropertyGroup>
-  
+
   <PropertyGroup Condition="'$(Configuration)' == 'Beta Release' OR '$(Configuration)' == 'Beta Debug'">
     <WorkshopId>2487959237</WorkshopId>
     <Type>Beta</Type>
@@ -187,16 +189,16 @@
     </ItemGroup>
     <Delete Files="@(FilesToDelete)" />
 
-	  <ItemGroup>
-		  <LocalizeToMove Include="$(OutDir)Properties\*.resx" />
-	  </ItemGroup>
-	  <Move SourceFiles="@(LocalizeToMove)" DestinationFiles="@(LocalizeToMove->'$(OutDir)Localize\%(Filename)%(Extension)')" />
-	  <RemoveDir Directories="$(OutDir)Properties" />
+    <ItemGroup>
+      <LocalizeToMove Include="$(OutDir)Properties\*.resx" />
+    </ItemGroup>
+    <Move SourceFiles="@(LocalizeToMove)" DestinationFiles="@(LocalizeToMove->'$(OutDir)Localize\%(Filename)%(Extension)')" />
+    <RemoveDir Directories="$(OutDir)Properties" />
 
-	  <ItemGroup>
-		  <CommonLocalizeToMove Include="$(OutDir)*.resx" />
-	  </ItemGroup>
-	  <Move SourceFiles="@(CommonLocalizeToMove)" DestinationFiles="@(CommonLocalizeToMove->'$(OutDir)Localize\%(Filename)%(Extension)')" />
+    <ItemGroup>
+      <CommonLocalizeToMove Include="$(OutDir)*.resx" />
+    </ItemGroup>
+    <Move SourceFiles="@(CommonLocalizeToMove)" DestinationFiles="@(CommonLocalizeToMove->'$(OutDir)Localize\%(Filename)%(Extension)')" />
   </Target>
 
   <Target Name="DeployToLocal" AfterTargets="PdbToMdb">
@@ -214,5 +216,5 @@
     <Copy SourceFiles="@(FilesToCopy)" DestinationFiles="@(FilesToCopy->'$(WorkshopDir)\%(RecursiveDir)%(Filename)%(Extension)')" />
     <Copy SourceFiles="$(ProjectDir)..\Workshop\PreviewImage$(Type).png" DestinationFiles="$(WorkshopDir)\PreviewImage.png" />
   </Target>
-  
+
 </Project>
