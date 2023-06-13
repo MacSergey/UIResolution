@@ -31,6 +31,11 @@ namespace UIResolution
 		public static string Mod_WhatsNewMessage1_2 => LocaleManager.GetString("Mod_WhatsNewMessage1_2", Culture);
 
 		/// <summary>
+		/// [UPDATED] New settings UI
+		/// </summary>
+		public static string Mod_WhatsNewMessage1_3 => LocaleManager.GetString("Mod_WhatsNewMessage1_3", Culture);
+
+		/// <summary>
 		/// UI Scale ({0}%)
 		/// </summary>
 		public static string UIScale => LocaleManager.GetString("UIScale", Culture);

@@ -1,18 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
-using System.Resources;
-using System.Text;
 using ColossalFramework;
-using ColossalFramework.Globalization;
 using ColossalFramework.UI;
 using HarmonyLib;
 using ICities;
 using ModsCommon;
-using ModsCommon.Utilities;
+using ModsCommon.Settings;
 using UnityEngine;
 
 namespace UIResolution
@@ -27,13 +23,14 @@ namespace UIResolution
 
         public override List<ModVersion> Versions { get; } = new List<ModVersion>
         {
+            new ModVersion(new Version("1.3"), new DateTime(2023, 4, 6)),
             new ModVersion(new Version("1.2"), new DateTime(2022,9,14)),
             new ModVersion(new Version("1.1.2"), new DateTime(2021,8,1)),
             new ModVersion(new Version("1.1.1"), new DateTime(2021,5,24)),
             new ModVersion(new Version("1.1"), new DateTime(2021,5,19)),
             new ModVersion(new Version("1.0"), new DateTime(2021,5,15)),
         };
-        protected override Version RequiredGameVersion => new Version(1, 16, 1, 2);
+        protected override Version RequiredGameVersion => new Version(1, 17, 0, 3);
 
 #if BETA
         public override bool IsBeta => true;
@@ -166,9 +163,9 @@ namespace UIResolution
             "(Library) AcademicYearReportPanel",
             "(Library) FishingInfoViewPanel",
             "(Library) TutorialsLogPanel",
-            "(Library) EpicAchievementPanel", 
-            "(Library) AirportWorldInfoPanel", 
-            "(Library) PedestrianZoneWorldInfoPanel", 
+            "(Library) EpicAchievementPanel",
+            "(Library) AirportWorldInfoPanel",
+            "(Library) PedestrianZoneWorldInfoPanel",
             "(Library) ServicePointInfoViewPanel",
         };
 
@@ -373,6 +370,17 @@ namespace UIResolution
                     GameObject.Destroy(uiResolution);
                 }
             }
+        }
+    }
+
+    public class Settings : BaseSettings<Mod>
+    {
+        public static SavedFloat UIScale { get; } = new SavedFloat(nameof(UIScale), SettingsFile, 1f, true);
+
+        protected override void FillSettings()
+        {
+            base.FillSettings();
+            AddNotifications(GeneralTab);
         }
     }
 
