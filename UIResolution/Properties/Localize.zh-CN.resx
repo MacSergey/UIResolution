@@ -122,7 +122,7 @@
   </data>
   
   <data name="Mod_WhatsNewMessage1_1_1" xml:space="preserve">
-    <value>[NEW] 添加缺失前置模组检查器。</value>
+    <value>[NEW] 添加缺少依赖检查器。</value>
   </data>
   <data name="Mod_WhatsNewMessage1_1_2" xml:space="preserve">
     <value>[TRANSLATION] 增加丹麦语和土耳其语。</value>
