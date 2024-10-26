@@ -139,6 +139,7 @@
   <data name="Mod_WhatsNewMessage1_3" xml:space="preserve">
     <value>[UPDATED] Nové nastavení UI</value>
   </data>
+  
   <data name="UIScale" xml:space="preserve">
     <value>Měřítko uživatelského rozhraní ({0}%)</value>
   </data>
