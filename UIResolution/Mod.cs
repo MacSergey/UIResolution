@@ -23,6 +23,7 @@ namespace UIResolution
 
         public override List<ModVersion> Versions { get; } = new List<ModVersion>
         {
+            new ModVersion(new Version("1.3.1"), new DateTime(2024, 10, 26)),
             new ModVersion(new Version("1.3"), new DateTime(2023, 4, 6)),
             new ModVersion(new Version("1.2"), new DateTime(2022,9,14)),
             new ModVersion(new Version("1.1.2"), new DateTime(2021,8,1)),
@@ -30,7 +31,7 @@ namespace UIResolution
             new ModVersion(new Version("1.1"), new DateTime(2021,5,19)),
             new ModVersion(new Version("1.0"), new DateTime(2021,5,15)),
         };
-        protected override Version RequiredGameVersion => new Version(1, 17, 1, 2);
+        protected override Version RequiredGameVersion => new Version(1, 18, 1, 3);
 
 #if BETA
         public override bool IsBeta => true;
