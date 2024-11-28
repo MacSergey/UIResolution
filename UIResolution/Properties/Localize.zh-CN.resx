@@ -122,10 +122,10 @@
   </data>
   
   <data name="Mod_WhatsNewMessage1_1_1" xml:space="preserve">
-    <value>[NEW] 添加缺失前置模组检查器。</value>
+    <value>[NEW] 添加缺少依赖检查器。</value>
   </data>
   <data name="Mod_WhatsNewMessage1_1_2" xml:space="preserve">
-    <value>[TRANSLATION] 增加丹麦语和土耳其语。</value>
+    <value>[TRANSLATION] 增加丹麦语和土耳其语翻译。</value>
   </data>
   <data name="Mod_WhatsNewMessage1_2" xml:space="preserve">
     <value>[UPDATED] 已添加对 Plazas &amp; Promenades DLC 更新的支持。
@@ -133,6 +133,9 @@
   </data>
   <data name="Mod_WhatsNewMessage1_3" xml:space="preserve">
     <value>[UPDATED] 新的设置界面</value>
+  </data>
+  <data name="Mod_WhatsNewMessage1_3_1" xml:space="preserve">
+    <value>[UPDATED] 将所需游戏版本更新为 1.18.1-f3</value>
   </data>
   <data name="UIScale" xml:space="preserve">
     <value>UI缩放 ({0}%)</value>

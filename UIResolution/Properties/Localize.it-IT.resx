@@ -134,6 +134,7 @@
   <data name="Mod_WhatsNewMessage1_3" xml:space="preserve">
     <value>[UPDATED] Nuove impostazioni UI</value>
   </data>
+  
   <data name="UIScale" xml:space="preserve">
     <value>Scala Interfaccia Utente ({0}%)</value>
   </data>
