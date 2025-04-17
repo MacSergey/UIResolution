@@ -134,6 +134,7 @@
   <data name="Mod_WhatsNewMessage1_3" xml:space="preserve">
     <value>[UPDATED] New settings UI</value>
   </data>
+  
   <data name="UIScale" xml:space="preserve">
     <value>UIの拡大率 ({0}%)</value>
   </data>

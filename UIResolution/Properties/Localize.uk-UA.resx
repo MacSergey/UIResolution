@@ -134,6 +134,7 @@
   <data name="Mod_WhatsNewMessage1_3" xml:space="preserve">
     <value>[UPDATED] Новий інтерфейс налаштувань</value>
   </data>
+  
   <data name="UIScale" xml:space="preserve">
     <value>Масштаб UI ({0}%)</value>
   </data>
