@@ -140,6 +140,7 @@
     <value>[UPDATED] Nouvelle interface pour les paramètres</value>
   </data>
   
+  
   <data name="UIScale" xml:space="preserve">
     <value>Échelle de l'UI ({0}%)</value>
   </data>
