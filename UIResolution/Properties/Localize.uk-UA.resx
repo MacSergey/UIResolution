@@ -135,6 +135,7 @@
     <value>[UPDATED] Новий інтерфейс налаштувань</value>
   </data>
   
+  
   <data name="UIScale" xml:space="preserve">
     <value>Масштаб UI ({0}%)</value>
   </data>
