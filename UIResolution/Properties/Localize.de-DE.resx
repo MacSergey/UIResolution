@@ -135,6 +135,7 @@
     <value>[UPDATED] Neue Benutzeroberfläche für Einstellungen</value>
   </data>
   
+  
   <data name="UIScale" xml:space="preserve">
     <value>UI-Skalierung ({0}%)</value>
   </data>
