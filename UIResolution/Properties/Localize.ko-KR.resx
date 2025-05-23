@@ -137,6 +137,7 @@
   <data name="Mod_WhatsNewMessage1_3_1" xml:space="preserve">
     <value>[업데이트] 필수 게임 버전이 1.18.1-f3으로 업데이트되었습니다</value>
   </data>
+  
   <data name="UIScale" xml:space="preserve">
     <value>UI 크기 ({0}%)</value>
   </data>
