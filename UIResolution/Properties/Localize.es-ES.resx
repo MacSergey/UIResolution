@@ -137,6 +137,7 @@
   <data name="Mod_WhatsNewMessage1_3_1" xml:space="preserve">
     <value>[UPDATED] Actualizada la versión de juego requerida a 1.18.1-f3</value>
   </data>
+  
   <data name="UIScale" xml:space="preserve">
     <value>Escala de interfaz de usuario ({0}%)</value>
   </data>
