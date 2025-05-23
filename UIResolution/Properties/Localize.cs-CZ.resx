@@ -140,6 +140,7 @@
     <value>[UPDATED] Nové nastavení UI</value>
   </data>
   
+  
   <data name="UIScale" xml:space="preserve">
     <value>Měřítko uživatelského rozhraní ({0}%)</value>
   </data>
