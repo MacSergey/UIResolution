@@ -135,6 +135,7 @@
     <value>[UPDATED] UI หน้าการตั้งค่ารูปแบบใหม่</value>
   </data>
   
+  
   <data name="UIScale" xml:space="preserve">
     <value>อัตราส่วน UI ({0}%)</value>
   </data>
