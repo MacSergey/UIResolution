@@ -135,6 +135,7 @@
     <value>[更新] 新的設置介面</value>
   </data>
   
+  
   <data name="UIScale" xml:space="preserve">
     <value>UI縮放 ({0}%)</value>
   </data>
