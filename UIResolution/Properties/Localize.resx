@@ -142,6 +142,9 @@
   <data name="Mod_WhatsNewMessage1_3_1" xml:space="preserve">
     <value>[UPDATED] Updated required game version to 1.18.1-f3</value>
   </data>
+  <data name="Mod_WhatsNewMessage1_3_2" xml:space="preserve">
+    <value>[UPDATED] Updated required game version to 1.19.2-f3</value>
+  </data>
   <data name="UIScale" xml:space="preserve">
     <value>UI Scale ({0}%)</value>
   </data>
