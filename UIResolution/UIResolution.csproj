@@ -69,7 +69,12 @@
     <EmbeddedResource Remove="Properties\Localize.pt-PT.resx" />
     <EmbeddedResource Remove="Properties\Localize.resx" />
     <EmbeddedResource Remove="Properties\Localize.ru-RU.resx" />
+    <EmbeddedResource Remove="Properties\Localize.th-TH.resx" />
+    <EmbeddedResource Remove="Properties\Localize.uk-UA.resx" />
+    <EmbeddedResource Remove="Properties\Localize.vi-VN.resx" />
     <EmbeddedResource Remove="Properties\Localize.zh-CN.resx" />
+    <EmbeddedResource Remove="Properties\Localize.zh-TW.resx" />
+    
     <None Remove="Properties\PreviewImage.png" />
     <EmbeddedResource Include="Properties\PreviewImage.png" />
     <None Include="Properties\Localize.cs-CZ.resx">
