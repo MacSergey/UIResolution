@@ -138,6 +138,7 @@
     <value>[UPDATED] Vereiste spelversie bijgewerkt naar 1.18.1-f3</value>
   </data>
   
+  
   <data name="UIScale" xml:space="preserve">
     <value>UI schaal ({0}%)</value>
   </data>
