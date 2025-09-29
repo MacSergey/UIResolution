@@ -143,6 +143,7 @@
     <value>[UPDATED] Требуемая версия игры обновлена до 1.18.1-f3</value>
   </data>
   
+  
   <data name="UIScale" xml:space="preserve">
     <value>Масштаб UI ({0}%)</value>
   </data>
