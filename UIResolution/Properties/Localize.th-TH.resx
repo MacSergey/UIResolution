@@ -120,7 +120,6 @@
   <data name="Mod_Description" xml:space="preserve">
     <value>ปรับความละเอียด UI ของเกม</value>
   </data>
-  
   <data name="Mod_WhatsNewMessage1_1_1" xml:space="preserve">
     <value>[NEW] เพิ่ม การตรวจสอบส่วนจำเป็นที่ขาดหาย</value>
   </data>
@@ -134,9 +133,6 @@
   <data name="Mod_WhatsNewMessage1_3" xml:space="preserve">
     <value>[UPDATED] UI หน้าการตั้งค่ารูปแบบใหม่</value>
   </data>
-  
-  
-  
   <data name="UIScale" xml:space="preserve">
     <value>อัตราส่วน UI ({0}%)</value>
   </data>
