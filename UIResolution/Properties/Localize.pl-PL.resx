@@ -120,7 +120,6 @@
   <data name="Mod_Description" xml:space="preserve">
     <value>Zmień rozdzielczość interfejsu gry</value>
   </data>
-  
   <data name="Mod_WhatsNewMessage1_1_1" xml:space="preserve">
     <value>[NEW] Dodano brakujący walidator zależności.</value>
   </data>
@@ -134,9 +133,6 @@
   <data name="Mod_WhatsNewMessage1_3" xml:space="preserve">
     <value>[UPDATED] Nowe ustawienia UI</value>
   </data>
-  
-  
-  
   <data name="UIScale" xml:space="preserve">
     <value>Skalowanie UI ({0}%)</value>
   </data>
