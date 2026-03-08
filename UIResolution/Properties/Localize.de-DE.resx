@@ -120,7 +120,6 @@
   <data name="Mod_Description" xml:space="preserve">
     <value>Ändere die Auflösung der Benutzer-Oberfläche</value>
   </data>
-  
   <data name="Mod_WhatsNewMessage1_1_1" xml:space="preserve">
     <value>[NEW] Prüfung auf fehlende Abhängigkeiten hinzugefügt.</value>
   </data>
@@ -134,9 +133,6 @@
   <data name="Mod_WhatsNewMessage1_3" xml:space="preserve">
     <value>[UPDATED] Neue Benutzeroberfläche für Einstellungen</value>
   </data>
-  
-  
-  
   <data name="UIScale" xml:space="preserve">
     <value>UI-Skalierung ({0}%)</value>
   </data>
