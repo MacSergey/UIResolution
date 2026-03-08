@@ -120,7 +120,6 @@
   <data name="Mod_Description" xml:space="preserve">
     <value>UI部分のスケール（拡大率）を変更します</value>
   </data>
-  
   <data name="Mod_WhatsNewMessage1_1_1" xml:space="preserve">
     <value>[NEW] Added missing dependency checker.</value>
   </data>
@@ -134,9 +133,6 @@
   <data name="Mod_WhatsNewMessage1_3" xml:space="preserve">
     <value>[UPDATED] New settings UI</value>
   </data>
-  
-  
-  
   <data name="UIScale" xml:space="preserve">
     <value>UIの拡大率 ({0}%)</value>
   </data>
