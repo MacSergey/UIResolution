@@ -120,7 +120,6 @@
   <data name="Mod_Description" xml:space="preserve">
     <value>Wijzig resolutie van de UI</value>
   </data>
-  
   <data name="Mod_WhatsNewMessage1_1_1" xml:space="preserve">
     <value>[NEW] Controle op ontbrekende afhankelijkheden toegevoegd.</value>
   </data>
@@ -137,8 +136,6 @@
   <data name="Mod_WhatsNewMessage1_3_1" xml:space="preserve">
     <value>[UPDATED] Vereiste spelversie bijgewerkt naar 1.18.1-f3</value>
   </data>
-  
-  
   <data name="UIScale" xml:space="preserve">
     <value>UI schaal ({0}%)</value>
   </data>
