@@ -227,6 +227,8 @@ namespace UIResolution
             success &= Patch_OptionsGraphicsPanel_SetSavedResolutionSettings();
             success &= Patch_OptionsGraphicsPanel_Awake();
 
+            success &= Patch_UniqueFactoryWorldInfoPanel_UpdateBindingsPostfix();
+
             return success;
         }
 
@@ -271,6 +273,10 @@ namespace UIResolution
         private bool Patch_OptionsGraphicsPanel_Awake()
         {
             return AddPostfix(typeof(Patcher), nameof(Patcher.AwakePostfix), typeof(OptionsGraphicsPanel), "Awake");
+        }
+        private bool Patch_UniqueFactoryWorldInfoPanel_UpdateBindingsPostfix()
+        {
+            return AddPostfix(typeof(Patcher), nameof(Patcher.UpdateBindingsPostfix), typeof(UniqueFactoryWorldInfoPanel), "UpdateBindings");
         }
 
         public static void SetViewSize(UIView view, int width, int height)
@@ -504,5 +510,44 @@ namespace UIResolution
             if (__instance.Find<UIPanel>("DisplaySettings") is UIPanel displaySettings)
                 Mod.AddScale(displaySettings);
         }
+
+        public static void UpdateBindingsPostfix(UniqueFactoryWorldInfoPanel __instance, ref InstanceID ___m_InstanceID, ref UITemplateList<UIPanel> ___m_inputs)
+        {
+            UniqueFactoryAI uniqueFactoryAI = Singleton<BuildingManager>.instance.m_buildings.m_buffer[___m_InstanceID.Building].Info.m_buildingAI as UniqueFactoryAI;
+            var m_inputResourceCount = GetInputResourceCount(uniqueFactoryAI);
+            for (int i = 0; i < m_inputResourceCount; i++)
+            {
+                UIPanel LayoutPanel = ___m_inputs.items[i].Find<UIPanel>("LayoutPanel");
+                LayoutPanel.relativePosition = Vector3.zero;
+                UISprite uISprite = ___m_inputs.items[i].Find<UISprite>("ResourceIcon");
+                var sprite_x = uISprite.relativePosition.x;
+                uISprite.relativePosition = new Vector2 (sprite_x, 3f);
+                UILabel uILabel = ___m_inputs.items[i].Find<UILabel>("ResourceLabel");
+                var label_x = uILabel.relativePosition.x;
+                uILabel.relativePosition = new Vector2(label_x, 34f);
+            }
+        }
+
+        private static int GetInputResourceCount(UniqueFactoryAI ai)
+        {
+            if (ai.m_inputResource1 == TransferManager.TransferReason.None)
+            {
+                return 0;
+            }
+            if (ai.m_inputResource2 == TransferManager.TransferReason.None)
+            {
+                return 1;
+            }
+            if (ai.m_inputResource3 == TransferManager.TransferReason.None)
+            {
+                return 2;
+            }
+            if (ai.m_inputResource4 == TransferManager.TransferReason.None)
+            {
+                return 3;
+            }
+            return 4;
+        }
+
     }
 }
